@@ -1,0 +1,30 @@
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700,200italic,400italic,700italic);
+
+body {
+	padding-top: 50px;
+
+	// background-color: #d4cfb2;
+	// color: #f7266a;
+	font-family: "Source Sans Pro", sans-serif;
+    color: #fff;
+    text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.4);
+    -webkit-font-smoothing: subpixel-antialiased;
+
+    background-attachment: fixed;
+    background-position: center center;
+    background-size: auto auto, cover;
+    // background-image: -ms-radial-gradient(center bottom, circle farthest-corner, rgba(19,26,30,0.9) 0%, rgba(19,26,30,0.9) 100%), url('http://slyillustrations.com/img/home-bg.jpg');
+    // background-image: -moz-radial-gradient(center bottom, circle farthest-corner, rgba(19,26,30,0.9) 0%, rgba(19,26,30,0.9) 100%), url('http://slyillustrations.com/img/home-bg.jpg');
+    // background-image: -o-radial-gradient(center bottom, circle farthest-corner, rgba(19,26,30,0.9) 0%, rgba(19,26,30,0.9) 100%), url('http://slyillustrations.com/img/home-bg.jpg');
+    // background-image: -webkit-gradient(radial, center bottom, 0, center bottom, 561, color-stop(0, #131a1e), color-stop(1, #131a1e));
+    // background-image: -webkit-radial-gradient(center bottom, circle farthest-corner, rgba(19,26,30,0.9) 0%, rgba(19,26,30,0.9) 100%), url('http://slyillustrations.com/img/home-bg.jpg');
+    background-image: radial-gradient(circle farthest-corner at center bottom, rgba(19,26,30,0.9) 0%, rgba(19,26,30,0.9) 100%), url('http://slyillustrations.com/img/home-bg.jpg');
+    
+
+	nav.navbar {
+		background-image: none;
+		background-color: transparent;
+	}
+
+	
+}

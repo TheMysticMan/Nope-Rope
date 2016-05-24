@@ -1,0 +1,19 @@
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700,200italic,400italic,700italic);
+body {
+  padding-top: 50px;
+  font-family: "Source Sans Pro", sans-serif;
+  color: #fff;
+  text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.4);
+  -webkit-font-smoothing: subpixel-antialiased;
+  background-attachment: fixed;
+  background-position: center center;
+  background-size: auto auto, cover;
+  background-image: radial-gradient(circle farthest-corner at center bottom, rgba(19, 26, 30, 0.9) 0%, rgba(19, 26, 30, 0.9) 100%), url("http://slyillustrations.com/img/home-bg.jpg");
+}
+
+body nav.navbar {
+  background-image: none;
+  background-color: transparent;
+}
+
+/*# sourceMappingURL=style.css.map */
