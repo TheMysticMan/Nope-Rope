@@ -22,12 +22,13 @@ html(ng-app="app")
     script(src='/node_modules/jquery/dist/jquery.js')
     script(src='/javascripts/vendor/socket.js')
     script(src='/node_modules/bootstrap/dist/js/bootstrap.min.js')
+    script(src='/javascripts/vendor/phaser.js')
 
     script(src='/javascripts/app.js')
     script(src='/javascripts/controllers/main.js')
     script(src='/javascripts/services/socket.js')
     script(src='/javascripts/directives/header.js')
     
-  body(ng-controller="mainController")
+  body(ng-controller="mainController", data-ng-init="init()")
     //header
     ng-view#content

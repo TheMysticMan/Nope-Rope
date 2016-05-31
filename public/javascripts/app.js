@@ -22,16 +22,17 @@ app.config(function($routeProvider, $locationProvider) {
 
     .when('/', {
         templateUrl : 'pages/index.jade',
+        controller  : 'mainController',
     })
 
     .when('/page1', {
         templateUrl : 'pages/page1/index.jade',
-        controller  : 'mainController',
+        //controller  : 'mainController',
     })
 
     .when('/page2', {
         templateUrl : 'pages/page2/index.jade',
-        controller  : 'mainController',
+        //controller  : 'mainController',
     })
 
     $locationProvider.html5Mode(true);
