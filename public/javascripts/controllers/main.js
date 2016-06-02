@@ -1,4 +1,4 @@
-angular.module('app.controllers').controller('mainController', function ($scope, socket, cfpLoadingBar) {
+angular.module('app.controllers').controller('mainController', function ($scope, socketFactory, cfpLoadingBar) {
 
 	$scope.init = function() {
 		$scope.game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: $scope.preload, create: $scope.create, update: $scope.update, render: $scope.render });
@@ -32,4 +32,5 @@ angular.module('app.controllers').controller('mainController', function ($scope,
 		};
 		
 	}
+	debugger;
 });
