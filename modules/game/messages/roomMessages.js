@@ -11,14 +11,32 @@
 function PlayerJoinedMessage(player, roomId)
 {
     var me = this;
-    me.messageName = "Player joined";
     me.roomId = roomId;
     me.newPlayer = {
         name : player.name,
         id : player.id
     }
 }
+PlayerJoinedMessage.messageName = "Player joined";
+
+/**
+ * This class defines the message that is send to the clients when a player leaves the room
+ * @param player
+ * @param roomId
+ * @constructor
+ */
+function PlayerLeftMessage(player, roomId)
+{
+    var me = this;
+    me.roomId = roomId;
+    me.leftPlayer = {
+        name: player.name,
+        id : player.id
+    }
+}
+PlayerLeftMessage.messageName = "Player left";
 
 module.exports = exports = {
-    NewPlayerMessage : PlayerJoinedMessage
+    PlayerJoinedMessage : PlayerJoinedMessage,
+    PlayerLeftMessage : PlayerLeftMessage
 };

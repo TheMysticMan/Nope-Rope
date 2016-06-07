@@ -6,9 +6,17 @@ angular.module('app.controllers').controller('mainController', function ($scope,
 
 		socket.on("Player joined", function(data)
 		{
-			console.dir(data);
+			console.log("player "+ data.newPlayer.id + " joined");
 		});
-		socket.emit("Join room", {name:"Demo Player", roomId: 1});
+
+		socket.on("Player left", function(data)
+		{
+			console.log("player "+ data.leftPlayer.id + " left");
+		});
+
+		socket.emit("Join room", {name:"Demo Player", roomId: 1}, function (connectedPlayers)
+		{
+		});
 	},
 
 	$scope.preload = function() {
@@ -37,5 +45,9 @@ angular.module('app.controllers').controller('mainController', function ($scope,
 			$scope.game.debug.geom(body, '#ffffff');
 		};
 		
+	};
+	$scope.click = function ()
+	{
+		socket.emit("Leave room");
 	}
 });

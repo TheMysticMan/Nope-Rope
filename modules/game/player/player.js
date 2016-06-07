@@ -25,6 +25,7 @@ function Player(socket)
     me.name = "";
     me.room = null;
     me.socket = socket;
+    me.socketId = socket.id;
 }
 
 module.exports = exports = Player;
