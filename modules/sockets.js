@@ -2,6 +2,7 @@
 var SocketIO = require("socket.io");
 var util = require('util');
 var EventEmitter = require('events').EventEmitter;
+var postal = require("postal");
 
 // Constructor
 function Sockets() {
@@ -18,20 +19,39 @@ Sockets.prototype.listen = function(server) {
 	this.io = SocketIO.listen(server);
 
 	this.io.sockets.on('connection', this.onConnection.bind(this));
-	this.io.sockets.on('disconnect', this.onDisconnect.bind(this));
 }
 
 Sockets.prototype.onConnection = function(socket) {
+	var socketId = socket.id;
 	console.log("Sockets:", "Someone connected");
 	this.emit("connection", socket);
-	this.connections[socket.id] = socket;
-}
 
-Sockets.prototype.onDisconnect = function(socket) {
+	socket.on("disconnect", this.onDisconnect.bind(this, socketId));
+
+	// publish event to global message bus
+	postal.publish({
+		channel: "socket",
+		topic: "connected",
+		data: {
+			socket: socket,
+		}
+	});
+	this.connections[socket.id] = socket;
+};
+
+Sockets.prototype.onDisconnect = function(socketId, socket) {
 	console.log("Sockets:", "Someone disconnected");
 	this.emit("disconnect");
+	postal.publish({
+		channel: "socket",
+		topic: "disconnected",
+		data: {
+			socket: socket,
+			socketId: socketId
+		}
+	});
 	delete this.connections[socket.id];
-}
+};
 
 // Export the class as singleton
 module.exports = exports = new Sockets();

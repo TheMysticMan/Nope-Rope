@@ -1,6 +1,20 @@
 angular.module('app.controllers').controller('mainController', function ($scope, socket, cfpLoadingBar) {
 
 	$scope.init = function() {
+		socket.on("Player joined", function(data)
+		{
+			console.log("player "+ data.newPlayer.id + " joined");
+		});
+
+		socket.on("Player left", function(data)
+		{
+			console.log("player "+ data.leftPlayer.id + " left");
+		});
+
+		socket.emit("Join room", {name:"Demo Player", roomId: 1}, function (connectedPlayers)
+		{
+		});
+
 		$scope.game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: $scope.preload, create: $scope.create, update: $scope.update, render: $scope.render });
 
 		$scope.bodySize = 10;
@@ -14,6 +28,7 @@ angular.module('app.controllers').controller('mainController', function ($scope,
 		$scope.players.push({name: 'Player 2', bodies: new Array(), direction: "left", position: {x: 350, y: 350}, color:"#5bffff"});
 		$scope.players.push({name: 'Player 3', bodies: new Array(), direction: "right", position:  {x: 450, y: 250}, color:"#FF9F1E" });
 		$scope.players.push({name: 'Player 4', bodies: new Array(), direction: "right", position:  {x: 450, y: 350}, color:"#4ea683" });
+
 	},
 
 	$scope.preload = function() {
@@ -132,5 +147,10 @@ angular.module('app.controllers').controller('mainController', function ($scope,
 			var head = player.bodies[player.bodies.length -1 ];
 			$scope.game.debug.geom(head, '#ffffff');
 		}
+
+	};
+	$scope.leave = function ()
+	{
+		socket.emit("Leave room");
 	}
 });
