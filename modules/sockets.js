@@ -19,11 +19,17 @@ Sockets.prototype.listen = function(server) {
 
 	this.io.sockets.on('connection', this.onConnection.bind(this));
 	this.io.sockets.on('disconnect', this.onDisconnect.bind(this));
+	this.io.sockets.on("join", function(data){
+		throw new Error();
+		console.log(data);
+	})
 }
 
 Sockets.prototype.onConnection = function(socket) {
 	console.log("Sockets:", "Someone connected");
 	this.emit("connection", socket);
+	socket.on("join",  function(data)
+	{console.log(data)})
 	this.connections[socket.id] = socket;
 }
 

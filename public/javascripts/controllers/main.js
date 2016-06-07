@@ -1,8 +1,14 @@
-angular.module('app.controllers').controller('mainController', function ($scope, socketFactory, cfpLoadingBar) {
+angular.module('app.controllers').controller('mainController', function ($scope, socket, cfpLoadingBar) {
 
 	$scope.init = function() {
 		$scope.game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: $scope.preload, create: $scope.create, update: $scope.update, render: $scope.render });
 		$scope.bodies = new Array();
+
+		socket.on("Player joined", function(data)
+		{
+			console.dir(data);
+		});
+		socket.emit("join", {name:"Demo Player", roomId: 1});
 	},
 
 	$scope.preload = function() {
@@ -32,5 +38,4 @@ angular.module('app.controllers').controller('mainController', function ($scope,
 		};
 		
 	}
-	debugger;
 });
