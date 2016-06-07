@@ -30,12 +30,12 @@ function Room(id)
     // initialize some default values
     me.id = id;
     me.boardSize = new Size(80, 60);
-    me.board = new Enumerable();
+    me.board = Enumerable.from([]);
     /**
      *
      * @type {Enumerable<Player>}
      */
-    me.players = new Enumerable();
+    me.players = Enumerable.from([]);
 
     /**
      * This method adds a player to the room.
@@ -44,7 +44,7 @@ function Room(id)
      */
     me.addPlayer = function (player)
     {
-        me.players.array.push(player);
+        me.players.getSource().push(player);
         me.sendMessage(new RoomMsg.NewPlayerMessage(player, me.id), {exclude: Enumerable.from([player])});
     };
 
@@ -63,11 +63,10 @@ function Room(id)
         // Send message to rest of players
         me.players.where(function (p)
         {
-            !excludedPlayerIds.contains(p.id);
-        }).forEach(
-            function (p)
+            return !excludedPlayerIds.contains(p.id);
+        }).forEach(function (p)
             {
-                socketWrapper.connections[p.socketId].send(message);
+                p.socket.emit(message.messageName, message);
             })
     }
 }

@@ -14,17 +14,17 @@ GeneratePlayerId =  function ()
 };
 
 /**
- *
- * @param name {string} : name of the player
- * @param socketId {String} :socket.io connectionId
+ * This class defines a player object
+ * @param socket {Socket} :socket.io socket
  * @constructor
  */
-function Player(name, socketId)
+function Player(socket)
 {
     var me = this;
     me.id = GeneratePlayerId();
-    me.name = name;
-    me.socketId = socketId;
+    me.name = "";
+    me.room = null;
+    me.socket = socket;
 }
 
 module.exports = exports = Player;

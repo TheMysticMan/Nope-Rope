@@ -8,7 +8,7 @@ angular.module('app.controllers').controller('mainController', function ($scope,
 		{
 			console.dir(data);
 		});
-		socket.emit("join", {name:"Demo Player", roomId: 1});
+		socket.emit("Join room", {name:"Demo Player", roomId: 1});
 	},
 
 	$scope.preload = function() {

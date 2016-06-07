@@ -6,11 +6,15 @@ var Guid = require("guid");
 
 var Room = require("./room");
 
-var activeRooms = new Enumerable();
+var activeRooms = Enumerable.from([]);
 
 function RoomFactory()
 {
     var me = this;
+
+    // mock default active room
+    activeRooms.getSource().push(new Room(1));
+
     /**
      * this method creates a room with a unique identifier
      * @returns {String}: Identifier
