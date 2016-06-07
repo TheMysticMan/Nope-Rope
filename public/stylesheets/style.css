@@ -1,7 +1,50 @@
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700,200italic,400italic,700italic);
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body h1 {
+  height: 64px;
+  line-height: 64px;
+  text-align: center;
+  color: white;
+}
+
 body canvas {
   margin-left: auto;
   margin-right: auto;
+  border: 5px solid gray;
+  margin-top: 64px;
+}
+
+h1, h2, h3, h4, h5 {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.background {
+  background-color: #1f2324;
+  background-position: center center;
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  z-index: -1;
+}
+
+.grid {
+  background-image: url("/images/grid.png");
+  background-position: left top;
+  background-size: initial;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  z-index: -1;
+}
+
+.grid.points {
+  background-image: url("/images/grid_point.png");
 }
 
 /*# sourceMappingURL=style.css.map */

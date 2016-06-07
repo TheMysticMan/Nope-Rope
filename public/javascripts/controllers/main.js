@@ -2,6 +2,7 @@ angular.module('app.controllers').controller('mainController', function ($scope,
 
 	$scope.init = function() {
 		$scope.game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: $scope.preload, create: $scope.create, update: $scope.update, render: $scope.render });
+
 		$scope.bodies = new Array();
 
 		$scope.bodySize = 10;
@@ -17,6 +18,7 @@ angular.module('app.controllers').controller('mainController', function ($scope,
 	$scope.create = function() {
 		console.log('create');
 		
+		$scope.game.stage.backgroundColor = "#1f2324";
     	$scope.game.world.setBounds(0, 0, 800, 600);
     	$scope.game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -48,7 +50,8 @@ angular.module('app.controllers').controller('mainController', function ($scope,
 	},
 
 	$scope.update = function() {
-		console.log('update');
+		
+		// Update local player
 		if ($scope.game.time.now - $scope.timeCheck > 100) {
 
 			$scope.timeCheck = $scope.game.time.now;
@@ -58,7 +61,6 @@ angular.module('app.controllers').controller('mainController', function ($scope,
 			}
 			else if($scope.direction == "down") {
 				$scope.position.y += $scope.bodySize;
-				
 			}
 			else if($scope.direction == "left") {
 				$scope.position.x -= $scope.bodySize;
@@ -67,19 +69,25 @@ angular.module('app.controllers').controller('mainController', function ($scope,
 				$scope.position.x += $scope.bodySize;
 			}
 
+			// TODO: We should get new positions even from ourself from the server
 			$scope.bodies.push(new Phaser.Rectangle($scope.position.x, $scope.position.y, $scope.bodySize, $scope.bodySize));
 		}
+
 
 	}
 
 	$scope.render = function() {
 		//console.log('render');
 
-		for (var i = $scope.bodies.length - 1; i >= 0; i--) {
+		// draw body
+		for (var i = $scope.bodies.length - 2; i >= 0; i--) {
 			var body = $scope.bodies[i];
 
-			$scope.game.debug.geom(body, '#ffffff');
+			$scope.game.debug.geom(body, '#ff00a2');
 		};
 		
+		//draw head
+		var head = $scope.bodies[$scope.bodies.length -1 ];
+		$scope.game.debug.geom(head, '#ffffff');
 	}
 });
