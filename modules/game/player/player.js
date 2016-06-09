@@ -153,6 +153,11 @@ function Position(x, y)
 	var me = this;
 	me.x = x;
 	me.y = y;
+	
+	me.equals = function (otherPosition)
+	{
+		return me.x == otherPosition.x && me.y == otherPosition.y;
+	}
 }
 /**
  * This method adds 2 position and returns that
