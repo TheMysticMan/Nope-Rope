@@ -95,6 +95,12 @@ function PlayerDirectionUpdateMessage(roomId, playerId, direction)
 }
 PlayerDirectionUpdateMessage.messageName = "Player direction update";
 
+/**
+ * This class defines the message that is send to the clients when a player died
+ * @param roomId
+ * @param playerId
+ * @constructor
+ */
 function PlayerDeadMessage(roomId, playerId)
 {
 	var me = this;
@@ -103,11 +109,24 @@ function PlayerDeadMessage(roomId, playerId)
 }
 PlayerDeadMessage.messageName = "Player dead";
 
+/**
+ * This class defines the message that is send to the clients when the game is stopped
+ * @param roomId
+ * @constructor
+ */
+function GameStoppedMessage(roomId)
+{
+	var me = this;
+	me.roomId = roomId;
+}
+GameStoppedMessage.messageName = "Game stopped";
+
 module.exports = exports = {
 	PlayerJoinedMessage          : PlayerJoinedMessage,
 	PlayerLeftMessage            : PlayerLeftMessage,
 	GameStartedMessage           : GameStartedMessage,
 	PlayerPositionUpdate         : PlayerPositionUpdate,
 	PlayerDirectionUpdateMessage : PlayerDirectionUpdateMessage,
-	PlayerDeadMessage            : PlayerDeadMessage
+	PlayerDeadMessage            : PlayerDeadMessage,
+	GameStoppedMessage           : GameStoppedMessage
 };

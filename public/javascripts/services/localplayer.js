@@ -3,7 +3,7 @@ angular.module('app.services')
 
 		function LocalPlayer(game) {
 			this.game = game;
-			this.direction = "left";
+			this.direction = "down";
 			this.setupControls();
 		}
 

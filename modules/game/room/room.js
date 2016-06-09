@@ -44,7 +44,7 @@ function Room(id)
 	 * @type {number}
 	 * @private
 	 */
-	me._defaultRoomSpeed = 10;
+	me._defaultRoomSpeed = 5;
 
 	/**
 	 * Holds the total count of updates for this room.
@@ -94,6 +94,11 @@ function Room(id)
 		}).toArray());
 
 		me.sendMessage(RoomMsg.PlayerLeftMessage.messageName, new RoomMsg.PlayerLeftMessage(player, me.id), {exclude : Enumerable.from([player])});
+
+		if(me.players.count() == 0)
+		{
+			me.stopGame();
+		}
 	};
 
 	/**
@@ -189,6 +194,18 @@ function Room(id)
 	};
 
 	/**
+	 * this method stops the game
+	 */
+	me.stopGame = function()
+	{
+		console.log("Game stopped");
+		clearInterval(me._gameLoopIntervalId);
+		me.isStarted = false;
+		me.board = [];
+		me.sendMessage(RoomMsg.GameStoppedMessage.messageName, new RoomMsg.GameStoppedMessage(me.id, me.players), null);
+	};
+
+	/**
 	 * This method will start the gameLoop so the board will be updated
 	 * @private
 	 */
@@ -212,10 +229,15 @@ function Room(id)
 	 */
 	me.setInitialBoardState = function ()
 	{
+		var increasePosition = new Player.Position(10,10);
+		var startPosition = new Player.Position(10,10);
+
 		me.players.forEach(function (player)
 		{
-			player.setCurrentPosition(new Player.Position(20, 20));
-			player.setDirection(Player.Direction.left);
+			startPosition = Player.Position.add(startPosition, increasePosition);
+
+			player.setCurrentPosition(startPosition);
+			player.setDirection(Player.Direction.down);
 			player.setState(Player.Player.State.Alive);
 		})
 	};
@@ -283,6 +305,7 @@ function Room(id)
 		// iterate over new positions to determine if it can be occupied
 		newPositions.forEach(function (newPos)
 		{
+			console.log("checking :", newPos.newPosition.x, " ", newPos.newPosition.y);
 			if (!me.isPositionOccupied(newPos.newPosition) && me.isPositionOnBoard(newPos.newPosition))
 			{
 				var otherPositions = Enumerable.from(newPositions).where(function (p)
@@ -291,14 +314,15 @@ function Room(id)
 				});
 				if (otherPositions.where(function (other)
 					{
-						return other.newPosition == newPos.newPosition
-					}).length > 0)
+						return other.newPosition.equals(newPos.newPosition)
+					}).count() > 0)
 				{
+					console.log("1");
 					deadPlayers.push(newPos.player);
 				}
 				else
 				{
-					occupiedPositions.push(newPos.player);
+					occupiedPositions.push(newPos);
 				}
 			}
 			else
@@ -309,18 +333,25 @@ function Room(id)
 		});
 
 		// set new positions
-		newPositions.forEach(function (newPos)
+		occupiedPositions.forEach(function (newPos)
 		{
+			newPos.player.setCurrentPosition(newPos.newPosition);
 			me.occupyPosition(newPos.player, newPos.newPosition);
 			me.sendMessage(RoomMsg.PlayerPositionUpdate.messageName, new RoomMsg.PlayerPositionUpdate(me.id, newPos.player.id, newPos.newPosition), null);
 		});
 
 		// set state to dead
-		deadPlayers.forEach(function(newPos)
+		deadPlayers.forEach(function(player)
 		{
-			newPos.player.setState(Player.Player.State.Dead);
-			me.sendMessage(RoomMsg.PlayerDeadMessage.messageName, new RoomMsg.PlayerDeadMessage(me.id, newPos.player.id), null);
+			player.setState(Player.Player.State.Dead);
+			me.sendMessage(RoomMsg.PlayerDeadMessage.messageName, new RoomMsg.PlayerDeadMessage(me.id, player.id), null);
 		});
+
+		// stop the game if the amount of alive players is one or less
+		if(me.players.where(function(p){return p.getState() == Player.Player.State.Alive}).count() <= 0)
+		{
+			me.stopGame();
+		}
 		me._isUpdating = false;
 	};
 
@@ -348,11 +379,12 @@ function Room(id)
 		var col = me.board[position.x];
 		if (col)
 		{
-			return col[position.y] == null || col[position.y] == undefined;
+			var a =  col[position.y] != null || col[position.y] != undefined;
+			return a;
 		}
 		else
 		{
-			return true;
+			return false;
 		}
 
 	};
@@ -364,7 +396,8 @@ function Room(id)
 	 */
 	me.isPositionOnBoard = function (position)
 	{
-		return position.x <= me.boardSize.x && position.y <= me.boardSize.y;
+		var a = position.x >= 0 &&  position.x < me.boardSize.x && position.y  >= 0 && position.y < me.boardSize.y;
+		return a;
 	};
 	//endregion
 }
