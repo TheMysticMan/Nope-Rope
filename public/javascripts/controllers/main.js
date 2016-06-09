@@ -11,8 +11,9 @@ angular.module('app.controllers').controller('mainController', function ($scope,
 			console.log("player "+ data.leftPlayer.id + " left");
 		});
 
-		socket.emit("Join room", {name:"Demo Player", roomId: 1}, function (connectedPlayers)
+		socket.emit("Join room", {name:"Demo Player", roomId: 1}, function (playerId, connectedPlayers)
 		{
+			debugger;
 		});
 setTimeout(function()
 {
