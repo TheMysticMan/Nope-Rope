@@ -2,6 +2,8 @@
  * Created by edoli on 7-6-2016.
  */
 
+var Player = require("./../player/player");
+
 /**
  * This class defines the message that is sent to the clients when a new player joined the room
  * @param player {Player}
@@ -48,8 +50,26 @@ function GameStartedMessage(roomId)
 }
 GameStartedMessage.messageName = "Game started";
 
+/**
+ * This class defines the message that is send to the clients when the position of a player is updated
+ * @param roomId {Number}
+ * @param playerId {Number}
+ * @param position {Player.Position}
+ * @constructor
+ */
+function PlayerPositionUpdate(roomId, playerId, position)
+{
+    var me = this;
+    me.playerId = playerId;
+    me.position = position;
+    me.roomId = roomId;
+}
+PlayerPositionUpdate.messageName = "Player position update";
+
+
 module.exports = exports = {
     PlayerJoinedMessage : PlayerJoinedMessage,
     PlayerLeftMessage : PlayerLeftMessage,
-    GameStartedMessage: GameStartedMessage
+    GameStartedMessage: GameStartedMessage,
+    PlayerPositionUpdate: PlayerPositionUpdate
 };

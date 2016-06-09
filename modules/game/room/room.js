@@ -14,11 +14,6 @@ var gameLoopInterval = 100;
 
 /**
  *
- * @type {{name: string, age: number}}
- */
-var a = {name: "iets", age: 1};
-/**
- *
  * @param x
  * @param y
  * @constructor
@@ -116,6 +111,7 @@ function Room(id)
     me.addPlayerEventListeners = function(player)
     {
         player.socket.once("Leave room", me.playerLeaveRoom.bind(me, player));
+        player.socket.on("Start game", me.startGame.bind(me));
     };
 
     /**
@@ -124,6 +120,7 @@ function Room(id)
      */
     me.playerLeaveRoom = function(player)
     {
+        delete player.socket;
         me.removePlayer(player);
         player.room  = null;
     };
@@ -166,6 +163,8 @@ function Room(id)
     me.startGame = function()
     {
         me.sendMessage(RoomMsg.GameStartedMessage.messageName, new RoomMsg.GameStartedMessage(me.id), null);
+        me.setInitialBoardState();
+        me._startGameLoop();
     };
 
     /**
@@ -204,14 +203,30 @@ function Room(id)
                 var speed = player.getSpeed();
                 if(me._updateCount % speed == 0)
                 {
-                    var direction = player.getDirection();
-                    var currentPosition = player.getCurrentPosition();
-                    player.getNewPosition()
+                    var steps = 1;
+                    //var direction = player.getDirection();
+                    //var currentPosition = player.getCurrentPosition();
+                    var newPosition = player.getNewPosition(steps);
+                    player.setCurrentPosition(newPosition);
+
+                    me.sendMessage(RoomMsg.PlayerPositionUpdate.messageName, new RoomMsg.PlayerPositionUpdate(me.id, player.id, newPosition), null);
                 }
             }
         });
 
         me._isUpdating = false;
+    }
+
+    /**
+     * This method sets the initial state of the board
+     */
+    me.setInitialBoardState = function ()
+    {
+        me.players.forEach(function(player)
+        {
+            player.setCurrentPosition(new Player.Position(200,200));
+            player.setDirection(Player.Direction.left);
+        })
     }
 }
 
