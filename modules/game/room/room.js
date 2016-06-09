@@ -32,6 +32,7 @@ function Room(id)
     me.id = id;
     me.boardSize = new Size(80, 60);
     me.board = Enumerable.from([]);
+    me.isStarted = false;
     /**
      *
      * @type {Enumerable<Player>}
@@ -99,9 +100,19 @@ function Room(id)
      * This method returns the players of this room
      * @returns {Array<{name:string,id:Number}>}
      */
-    me.getPlayers = function ()
+    me.getPlayers = function (filter)
     {
-        return me.players.select(function(p){return {name: p.name, id: p.id}}).toArray();
+        var players = me.players;
+        if(filter)
+        {
+            if(filter.exclude)
+            {
+                players = players.where(function(p){
+                    return !filter.exclude.contains(p.id);
+                })
+            }
+        }
+        return players.select(function(p){return {name: p.name, id: p.id}}).toArray();
     };
 
     /**
@@ -163,10 +174,14 @@ function Room(id)
      */
     me.startGame = function()
     {
-        console.log("Game Started");
-        me.setInitialBoardState();
-        me.sendMessage(RoomMsg.GameStartedMessage.messageName, new RoomMsg.GameStartedMessage(me.id, me.players), null);
-        me._startGameLoop();
+        if(!me.isStarted )
+        {
+            me.isStarted = true;
+            console.log("Game Started");
+            me.setInitialBoardState();
+            me.sendMessage(RoomMsg.GameStartedMessage.messageName, new RoomMsg.GameStartedMessage(me.id, me.players), null);
+            me._startGameLoop();
+        }
     };
 
     /**

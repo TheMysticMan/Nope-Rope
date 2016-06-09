@@ -11,17 +11,10 @@ angular.module('app.controllers').controller('mainController', function ($scope,
 			console.log("player "+ data.leftPlayer.id + " left");
 		});
 
-		socket.emit("Join room", {name:"Demo Player", roomId: 1}, function (connectedPlayers)
+		socket.emit("Join room", {name:"Demo Player", roomId: 1}, function (playerId, connectedPlayers)
 		{
 			
 		});
-setTimeout(function()
-{
-	socket.emit("Start game", null, function()
-	{
-
-	});
-}, 1000);
 
 		socket.on("Player position update", function(playerPosition)
 		{
@@ -134,5 +127,12 @@ setTimeout(function()
 	$scope.leave = function ()
 	{
 		socket.emit("Leave room");
+	}
+	$scope.startgame = function ()
+	{
+		socket.emit("Start game", null, function()
+		{
+
+		});
 	}
 });
