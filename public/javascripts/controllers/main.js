@@ -1,4 +1,4 @@
-angular.module('app.controllers').controller('mainController', function ($scope, socket, cfpLoadingBar) {
+angular.module('app.controllers').controller('mainController', function ($scope, socket, cfpLoadingBar, LocalPlayer) {
 
 	$scope.init = function() {
 		socket.on("Player joined", function(data)
@@ -33,12 +33,7 @@ setTimeout(function()
 		$scope.game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: $scope.preload, create: $scope.create, update: $scope.update, render: $scope.render });
 
 		$scope.bodySize = 10;
-
-		// localplayer properties
-		$scope.bodies = new Array();
-		$scope.position =  {x: 350, y: 250};
-		$scope.direction = "left";
-	
+		
 		$scope.players = new Array();
 		$scope.players.push({name: 'Player 2', bodies: new Array(), direction: "left", position: {x: 350, y: 350}, color:"#5bffff"});
 		$scope.players.push({name: 'Player 3', bodies: new Array(), direction: "right", position:  {x: 450, y: 250}, color:"#FF9F1E" });
@@ -57,36 +52,9 @@ setTimeout(function()
     	$scope.game.world.setBounds(0, 0, 800, 600);
     	$scope.game.physics.startSystem(Phaser.Physics.ARCADE);
 
-    	$scope.timeCheck = $scope.game.time.now;;
+    	$scope.timeCheck = $scope.game.time.now;
 
-
-    	// Setup input
-    	$scope.up = $scope.game.input.keyboard.addKey(Phaser.Keyboard.W);
-    	$scope.down = $scope.game.input.keyboard.addKey(Phaser.Keyboard.S);
-    	$scope.left = $scope.game.input.keyboard.addKey(Phaser.Keyboard.A);
-    	$scope.right = $scope.game.input.keyboard.addKey(Phaser.Keyboard.D);
-
-    	$scope.up.onDown.add(function() { 
-    		$scope.direction = $scope.direction != "down" ? "up" : $scope.direction; // Cannot go from down to up
-    		socket.emit("update direction", $scope.direction, function(err, msg) {});
-    	}, this);
-
-    	$scope.down.onDown.add(function() { 
-    		$scope.direction = $scope.direction != "up" ? "down" : $scope.direction // Cannot go from up to down
-    		socket.emit("update direction", $scope.direction, function(err, msg) {});
-    	}, this);
-
-    	$scope.left.onDown.add(function() { 
-    		$scope.direction = $scope.direction != "right" ? "left" : $scope.direction // Cannot go from right to left
-    		socket.emit("update direction", $scope.direction, function(err, msg) {});
-    	}, this);
-
-    	$scope.right.onDown.add(function() { 
-    		$scope.direction = $scope.direction != "left" ? "right" : $scope.direction // Cannot go from right to left
-
-    		socket.emit("update direction", $scope.direction, function(err, msg) {});
-    	}, this);
-
+    	$scope.localPlayer = new LocalPlayer($scope.game);
 	},
 
 	$scope.update = function() {
@@ -97,21 +65,23 @@ setTimeout(function()
 			$scope.timeCheck = $scope.game.time.now;
 
 			// Update local player
-			if($scope.direction == "up") {
-				$scope.position.y -= $scope.bodySize;
-			}
-			else if($scope.direction == "down") {
-				$scope.position.y += $scope.bodySize;
-			}
-			else if($scope.direction == "left") {
-				$scope.position.x -= $scope.bodySize;
-			}
-			else if($scope.direction == "right") {
-				$scope.position.x += $scope.bodySize;
-			}
+			$scope.localPlayer.update();
+			
+			// if($scope.direction == "up") {
+			// 	$scope.position.y -= $scope.bodySize;
+			// }
+			// else if($scope.direction == "down") {
+			// 	$scope.position.y += $scope.bodySize;
+			// }
+			// else if($scope.direction == "left") {
+			// 	$scope.position.x -= $scope.bodySize;
+			// }
+			// else if($scope.direction == "right") {
+			// 	$scope.position.x += $scope.bodySize;
+			// }
 
 			// TODO: We should get new positions from the server. even for the localplayer
-			$scope.bodies.push(new Phaser.Rectangle($scope.position.x, $scope.position.y, $scope.bodySize, $scope.bodySize));
+			//$scope.bodies.push(new Phaser.Rectangle($scope.position.x, $scope.position.y, $scope.bodySize, $scope.bodySize));
 
 			// update other players
 			for (var i = 0; i < $scope.players.length; i++) {
@@ -144,16 +114,16 @@ setTimeout(function()
 	}
 
 	$scope.render = function() {
-		// draw localplayer's body
-		for (var i = $scope.bodies.length - 2; i >= 0; i--) {
-			var body = $scope.bodies[i];
+		// // draw localplayer's body
+		// for (var i = $scope.bodies.length - 2; i >= 0; i--) {
+		// 	var body = $scope.bodies[i];
 
-			$scope.game.debug.geom(body, '#ff00a2');
-		};
+		// 	$scope.game.debug.geom(body, '#ff00a2');
+		// };
 
-		//draw localplayer's head
-		var head = $scope.bodies[$scope.bodies.length -1 ];
-		$scope.game.debug.geom(head, '#ffffff');
+		// //draw localplayer's head
+		// var head = $scope.bodies[$scope.bodies.length -1 ];
+		// $scope.game.debug.geom(head, '#ffffff');
 
 		// draw other players
 		for (var i = 0; i < $scope.players.length; i++) {
@@ -169,7 +139,7 @@ setTimeout(function()
 		}
 
 	};
-	
+
 	$scope.leave = function ()
 	{
 		socket.emit("Leave room");
