@@ -7,10 +7,11 @@ var RoomMsg = require("./../messages/roomMessages");
 var socketWrapper = require("./../../sockets");
 
 /**
- *
- * @type {{name: string, age: number}}
+ * this holds the interval in milliseconds in which the board will be updated
+ * @type {number}
  */
-var a = {name: "iets", age: 1};
+var gameLoopInterval = 100;
+
 /**
  *
  * @param x
@@ -38,12 +39,41 @@ function Room(id)
     me.players = Enumerable.from([]);
 
     /**
+     * Holds the default speed for every player in this room
+     * @type {number}
+     * @private
+     */
+    me._defaultRoomSpeed = 10;
+
+    /**
+     * Holds the total count of updates for this room.
+     * This way we can determine whether or not the player should be updated
+     * @type {number}
+     * @private
+     */
+    me._updateCount = 0;
+    /**
+     * this will hold the interval id for the game loop when the game is running
+     * @type {null}
+     * @private
+     */
+    me._gameLoopIntervalId = null;
+
+    /**
+     * Holds a boolean indicating if the board is currently being updated
+     * @type {boolean}
+     * @private
+     */
+    me._isUpdating = false;
+
+    /**
      * This method adds a player to the room.
      * To let the other players know send an update to all the other players
      * @param player {Player} : the new player
      */
     me.addPlayer = function (player)
     {
+        player.setSpeed(me._defaultRoomSpeed);
         me.players.getSource().push(player);
         me.sendMessage(RoomMsg.PlayerJoinedMessage.messageName, new RoomMsg.PlayerJoinedMessage(player, me.id), {exclude: Enumerable.from([player])});
 
@@ -81,6 +111,8 @@ function Room(id)
     me.addPlayerEventListeners = function(player)
     {
         player.socket.once("Leave room", me.playerLeaveRoom.bind(me, player));
+        player.socket.on("Start game", me.startGame.bind(me));
+        player.socket.on("update direction", me.playerUpdateDirection.bind(me, player));
     };
 
     /**
@@ -89,6 +121,7 @@ function Room(id)
      */
     me.playerLeaveRoom = function(player)
     {
+        delete player.socket;
         me.removePlayer(player);
         player.room  = null;
     };
@@ -97,15 +130,23 @@ function Room(id)
      * This method sends an message to connected players
      * @param messageName {String} : the name of the message
      * @param message {Object} : RoomMessage
-     * @param config {{exclude : Enumerable<Player>}}
+     * @param config {{exclude : Enumerable<Player>} || null}
      */
     me.sendMessage = function (messageName, message, config)
     {
         // Get the ids of the excluded player
-        var excludedPlayerIds = config.exclude.select(function (p)
+        var excludedPlayerIds = Enumerable.from([]);
+
+        if(config)
         {
-            return p.id
-        });
+            if(config.exclude)
+            {
+                excludedPlayerIds = config.exclude.select(function (p)
+                {
+                    return p.id
+                });
+            }
+        }
         // Send message to rest of players
         me.players.where(function (p)
         {
@@ -114,6 +155,102 @@ function Room(id)
         {
             p.socket.emit(messageName, message);
         })
+    };
+
+    /**
+     * This method sends an game started message to all the players.
+     * It will start the gameLoop that will update the board
+     */
+    me.startGame = function()
+    {
+        console.log("Game Started");
+        me.setInitialBoardState();
+        me.sendMessage(RoomMsg.GameStartedMessage.messageName, new RoomMsg.GameStartedMessage(me.id, me.players), null);
+        me._startGameLoop();
+    };
+
+    /**
+     * This method will start the gameLoop so the board will be updated
+     * @private
+     */
+    me._startGameLoop = function()
+    {
+        me._gameLoopIntervalId = setInterval(function()
+        {
+            // increase the updateCount
+            me._updateCount++;
+
+            // only update the board if there isn't already an update going on
+            if(!me._isUpdating)
+            {
+                me._updateBoard();
+            }
+        }, gameLoopInterval)
+    };
+
+    /**
+     * This method will update the board.
+     *  It will calculate the next step for a player and check if it isn't a collision
+     * @private
+     */
+    me._updateBoard = function()
+    {
+        me._isUpdating =  true;
+
+        me.players.forEach(/** @param player {Player} */
+        function(player)
+        {
+            if(player.getState() == Player.Player.State.Alive)
+            {
+                var speed = player.getSpeed();
+                if(me._updateCount % speed == 0)
+                {
+                    var steps = 1;
+                    //var direction = player.getDirection();
+                    //var currentPosition = player.getCurrentPosition();
+                    var newPosition = player.getNewPosition(steps);
+                    player.setCurrentPosition(newPosition);
+
+                    me.sendMessage(RoomMsg.PlayerPositionUpdate.messageName, new RoomMsg.PlayerPositionUpdate(me.id, player.id, newPosition), null);
+                }
+            }
+        });
+
+        me._isUpdating = false;
+    };
+
+    /**
+     * This method sets the initial state of the board
+     */
+    me.setInitialBoardState = function ()
+    {
+        me.players.forEach(function(player)
+        {
+            player.setCurrentPosition(new Player.Position(20,20));
+            player.setDirection(Player.Direction.left);
+            player.setState(Player.Player.State.Alive);
+        })
+    }
+
+    /**
+     * This method is called when a player changes its direction.
+     * It will set the direction of that player and let all the others know the position is changed
+     * @param player {Player}
+     * @param direction {String}
+     */
+    me.playerUpdateDirection = function (player, direction)
+    {
+        var directionObj = Player.Direction[direction];
+        if(directionObj)
+        {
+            console.log("player direction changed to :", direction);
+            player.setDirection(directionObj);
+            me.sendMessage(RoomMsg.PlayerDirectionUpdateMessage.messageName, new RoomMsg.PlayerDirectionUpdateMessage(me.id, player.id, direction), null);
+        }
+        else
+        {
+            throw new Error("direction " + direction + " is not a know direction");
+        }
     }
 }
 

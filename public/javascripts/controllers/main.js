@@ -14,6 +14,21 @@ angular.module('app.controllers').controller('mainController', function ($scope,
 		socket.emit("Join room", {name:"Demo Player", roomId: 1}, function (connectedPlayers)
 		{
 		});
+setTimeout(function()
+{
+	socket.emit("Start game", null, function()
+	{
+
+	});
+}, 1000);
+
+		socket.on("Player position update", function(playerPosition)
+		{
+			var playerId = playerPosition.playerId;
+			var position = playerPosition.position;
+			var roomId = playerPosition.roomId;
+			console.log("position update ", playerId," x:", position.x, " y:", position.y);
+		});
 
 		$scope.game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: $scope.preload, create: $scope.create, update: $scope.update, render: $scope.render });
 

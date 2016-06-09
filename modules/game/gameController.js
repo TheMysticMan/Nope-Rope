@@ -19,7 +19,7 @@ function GameController()
      */
     me._addConnectedPlayer = function (data)
     {
-        var connectedPlayer = new Player(data.socket);
+        var connectedPlayer = new Player.Player(data.socket);
         me._connectedPlayers.getSource().push(connectedPlayer);
         me._initPlayerListeners(connectedPlayer)
     };
