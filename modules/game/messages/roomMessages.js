@@ -95,10 +95,19 @@ function PlayerDirectionUpdateMessage(roomId, playerId, direction)
 }
 PlayerDirectionUpdateMessage.messageName = "Player direction update";
 
+function PlayerDeadMessage(roomId, playerId)
+{
+	var me = this;
+	me.roomId = roomId;
+	me.playerId = playerId;
+}
+PlayerDeadMessage.messageName = "Player dead";
+
 module.exports = exports = {
 	PlayerJoinedMessage          : PlayerJoinedMessage,
 	PlayerLeftMessage            : PlayerLeftMessage,
 	GameStartedMessage           : GameStartedMessage,
 	PlayerPositionUpdate         : PlayerPositionUpdate,
-	PlayerDirectionUpdateMessage : PlayerDirectionUpdateMessage
+	PlayerDirectionUpdateMessage : PlayerDirectionUpdateMessage,
+	PlayerDeadMessage            : PlayerDeadMessage
 };
