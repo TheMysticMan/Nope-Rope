@@ -3,6 +3,7 @@
  */
 
 var Player = require("./../player/player");
+var Enumberable = require("linq");
 
 /**
  * This class defines the message that is sent to the clients when a new player joined the room
@@ -41,12 +42,24 @@ PlayerLeftMessage.messageName = "Player left";
 /**
  * This class defines the message that is send to the clients when the game is started
  * @param roomId
+ * @param players: {Enumberable<Player>}
  * @constructor
  */
-function GameStartedMessage(roomId)
+function GameStartedMessage(roomId, players)
 {
     var me = this;
     me.roomId = roomId;
+    me.players = [];
+    players.forEach(function(player)
+    {
+        var dto = {
+            id : player.id,
+            name: player.name,
+            position : player.getCurrentPosition(),
+            direction : player.getDirection()
+        };
+        me.players.push(dto);
+    })
 }
 GameStartedMessage.messageName = "Game started";
 

@@ -162,8 +162,8 @@ function Room(id)
      */
     me.startGame = function()
     {
-        me.sendMessage(RoomMsg.GameStartedMessage.messageName, new RoomMsg.GameStartedMessage(me.id), null);
         me.setInitialBoardState();
+        me.sendMessage(RoomMsg.GameStartedMessage.messageName, new RoomMsg.GameStartedMessage(me.id, me.players), null);
         me._startGameLoop();
     };
 
@@ -198,7 +198,7 @@ function Room(id)
         me.players.forEach(/** @param player {Player} */
         function(player)
         {
-            if(player.getState() == Player.State.Alive)
+            if(player.getState() == Player.Player.State.Alive)
             {
                 var speed = player.getSpeed();
                 if(me._updateCount % speed == 0)
@@ -215,7 +215,7 @@ function Room(id)
         });
 
         me._isUpdating = false;
-    }
+    };
 
     /**
      * This method sets the initial state of the board
