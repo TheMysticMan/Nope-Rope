@@ -7,6 +7,12 @@ var RoomMsg = require("./../messages/roomMessages");
 var socketWrapper = require("./../../sockets");
 
 /**
+ * this holds the interval in milliseconds in which the board will be updated
+ * @type {number}
+ */
+var gameLoopInterval = 100;
+
+/**
  *
  * @type {{name: string, age: number}}
  */
@@ -38,12 +44,41 @@ function Room(id)
     me.players = Enumerable.from([]);
 
     /**
+     * Holds the default speed for every player in this room
+     * @type {number}
+     * @private
+     */
+    me._defaultRoomSpeed = 10;
+
+    /**
+     * Holds the total count of updates for this room.
+     * This way we can determine whether or not the player should be updated
+     * @type {number}
+     * @private
+     */
+    me._updateCount = 0;
+    /**
+     * this will hold the interval id for the game loop when the game is running
+     * @type {null}
+     * @private
+     */
+    me._gameLoopIntervalId = null;
+
+    /**
+     * Holds a boolean indicating if the board is currently being updated
+     * @type {boolean}
+     * @private
+     */
+    me._isUpdating = false;
+
+    /**
      * This method adds a player to the room.
      * To let the other players know send an update to all the other players
      * @param player {Player} : the new player
      */
     me.addPlayer = function (player)
     {
+        player.setSpeed(me._defaultRoomSpeed);
         me.players.getSource().push(player);
         me.sendMessage(RoomMsg.PlayerJoinedMessage.messageName, new RoomMsg.PlayerJoinedMessage(player, me.id), {exclude: Enumerable.from([player])});
 
@@ -97,15 +132,23 @@ function Room(id)
      * This method sends an message to connected players
      * @param messageName {String} : the name of the message
      * @param message {Object} : RoomMessage
-     * @param config {{exclude : Enumerable<Player>}}
+     * @param config {{exclude : Enumerable<Player>} || null}
      */
     me.sendMessage = function (messageName, message, config)
     {
         // Get the ids of the excluded player
-        var excludedPlayerIds = config.exclude.select(function (p)
+        var excludedPlayerIds = Enumerable.from([]);
+
+        if(config)
         {
-            return p.id
-        });
+            if(config.exclude)
+            {
+                excludedPlayerIds = config.exclude.select(function (p)
+                {
+                    return p.id
+                });
+            }
+        }
         // Send message to rest of players
         me.players.where(function (p)
         {
@@ -114,6 +157,61 @@ function Room(id)
         {
             p.socket.emit(messageName, message);
         })
+    };
+
+    /**
+     * This method sends an game started message to all the players.
+     * It will start the gameLoop that will update the board
+     */
+    me.startGame = function()
+    {
+        me.sendMessage(RoomMsg.GameStartedMessage.messageName, new RoomMsg.GameStartedMessage(me.id), null);
+    };
+
+    /**
+     * This method will start the gameLoop so the board will be updated
+     * @private
+     */
+    me._startGameLoop = function()
+    {
+        me._gameLoopIntervalId = setInterval(function()
+        {
+            // increase the updateCount
+            me._updateCount++;
+
+            // only update the board if there isn't already an update going on
+            if(!me._isUpdating)
+            {
+                me._updateBoard();
+            }
+        }, gameLoopInterval)
+    };
+
+    /**
+     * This method will update the board.
+     *  It will calculate the next step for a player and check if it isn't a collision
+     * @private
+     */
+    me._updateBoard = function()
+    {
+        me._isUpdating =  true;
+
+        me.players.forEach(/** @param player {Player} */
+        function(player)
+        {
+            if(player.getState() == Player.State.Alive)
+            {
+                var speed = player.getSpeed();
+                if(me._updateCount % speed == 0)
+                {
+                    var direction = player.getDirection();
+                    var currentPosition = player.getCurrentPosition();
+                    player.getNewPosition()
+                }
+            }
+        });
+
+        me._isUpdating = false;
     }
 }
 

@@ -36,7 +36,20 @@ function PlayerLeftMessage(player, roomId)
 }
 PlayerLeftMessage.messageName = "Player left";
 
+/**
+ * This class defines the message that is send to the clients when the game is started
+ * @param roomId
+ * @constructor
+ */
+function GameStartedMessage(roomId)
+{
+    var me = this;
+    me.roomId = roomId;
+}
+GameStartedMessage.messageName = "Game started";
+
 module.exports = exports = {
     PlayerJoinedMessage : PlayerJoinedMessage,
-    PlayerLeftMessage : PlayerLeftMessage
+    PlayerLeftMessage : PlayerLeftMessage,
+    GameStartedMessage: GameStartedMessage
 };
