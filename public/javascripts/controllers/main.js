@@ -53,18 +53,23 @@ angular.module('app.controllers').controller('mainController', function ($scope,
 
     	$scope.up.onDown.add(function() { 
     		$scope.direction = $scope.direction != "down" ? "up" : $scope.direction; // Cannot go from down to up
+    		socket.emit("update direction", $scope.direction, function(err, msg) {});
     	}, this);
 
     	$scope.down.onDown.add(function() { 
     		$scope.direction = $scope.direction != "up" ? "down" : $scope.direction // Cannot go from up to down
+    		socket.emit("update direction", $scope.direction, function(err, msg) {});
     	}, this);
 
     	$scope.left.onDown.add(function() { 
     		$scope.direction = $scope.direction != "right" ? "left" : $scope.direction // Cannot go from right to left
+    		socket.emit("update direction", $scope.direction, function(err, msg) {});
     	}, this);
 
     	$scope.right.onDown.add(function() { 
     		$scope.direction = $scope.direction != "left" ? "right" : $scope.direction // Cannot go from right to left
+
+    		socket.emit("update direction", $scope.direction, function(err, msg) {});
     	}, this);
 
 	},
@@ -149,6 +154,7 @@ angular.module('app.controllers').controller('mainController', function ($scope,
 		}
 
 	};
+	
 	$scope.leave = function ()
 	{
 		socket.emit("Leave room");
