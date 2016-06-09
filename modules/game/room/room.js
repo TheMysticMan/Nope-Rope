@@ -99,9 +99,19 @@ function Room(id)
      * This method returns the players of this room
      * @returns {Array<{name:string,id:Number}>}
      */
-    me.getPlayers = function ()
+    me.getPlayers = function (filter)
     {
-        return me.players.select(function(p){return {name: p.name, id: p.id}}).toArray();
+        var players = me.players;
+        if(filter)
+        {
+            if(filter.exclude)
+            {
+                players = players.where(function(p){
+                    return !filter.exclude.contains(p.id);
+                })
+            }
+        }
+        return players.select(function(p){return {name: p.name, id: p.id}}).toArray();
     };
 
     /**
