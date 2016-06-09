@@ -169,9 +169,9 @@ Position.add = function(position1, position2)
  */
 var Direction = {
 	// UP
-	up : new Position(0, 1),
+	up : new Position(0, -1),
 	// DOWN
-	down : new Position(0, -1),
+	down : new Position(0, 1),
 	// LEFT
 	left : new Position(-1, 0),
 	//RIGHT
