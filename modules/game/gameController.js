@@ -86,7 +86,7 @@ function GameController()
         connectedPlayer.name = data.name;
         connectedPlayer.room = room;
         room.addPlayer(connectedPlayer);
-        callback(connectedPlayer.id, room.getPlayers({exclude: Enumerable.from([connectedPlayer.id])}));
+        callback(connectedPlayer.id, room.getPlayers());
     };
 
     me.addPostalListeners();

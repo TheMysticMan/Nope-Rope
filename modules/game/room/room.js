@@ -10,7 +10,7 @@ var socketWrapper = require("./../../sockets");
  * this holds the interval in milliseconds in which the board will be updated
  * @type {number}
  */
-var gameLoopInterval = 100;
+var gameLoopInterval = 50;
 
 /**
  *
