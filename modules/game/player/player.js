@@ -175,7 +175,7 @@ var Direction = {
 	// LEFT
 	left : new Position(-1, 0),
 	//RIGHT
-	right : new Position(1.0)
+	right : new Position(1, 0)
 };
 
 module.exports = exports =

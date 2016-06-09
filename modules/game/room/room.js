@@ -112,6 +112,7 @@ function Room(id)
     {
         player.socket.once("Leave room", me.playerLeaveRoom.bind(me, player));
         player.socket.on("Start game", me.startGame.bind(me));
+        player.socket.on("update direction", me.playerUpdateDirection.bind(me, player));
     };
 
     /**
@@ -162,6 +163,7 @@ function Room(id)
      */
     me.startGame = function()
     {
+        console.log("Game Started");
         me.setInitialBoardState();
         me.sendMessage(RoomMsg.GameStartedMessage.messageName, new RoomMsg.GameStartedMessage(me.id, me.players), null);
         me._startGameLoop();
@@ -224,9 +226,31 @@ function Room(id)
     {
         me.players.forEach(function(player)
         {
-            player.setCurrentPosition(new Player.Position(200,200));
+            player.setCurrentPosition(new Player.Position(20,20));
             player.setDirection(Player.Direction.left);
+            player.setState(Player.Player.State.Alive);
         })
+    }
+
+    /**
+     * This method is called when a player changes its direction.
+     * It will set the direction of that player and let all the others know the position is changed
+     * @param player {Player}
+     * @param direction {String}
+     */
+    me.playerUpdateDirection = function (player, direction)
+    {
+        var directionObj = Player.Direction[direction];
+        if(directionObj)
+        {
+            console.log("player direction changed to :", direction);
+            player.setDirection(directionObj);
+            me.sendMessage(RoomMsg.PlayerDirectionUpdateMessage.messageName, new RoomMsg.PlayerDirectionUpdateMessage(me.id, player.id, direction), null);
+        }
+        else
+        {
+            throw new Error("direction " + direction + " is not a know direction");
+        }
     }
 }
 
