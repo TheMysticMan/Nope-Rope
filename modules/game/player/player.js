@@ -28,6 +28,7 @@ function Player(socket)
 	me.socketId = socket.id;
 	me.currentPosition = null;
 	me.direction = null;
+	me.color = null;
 
 	/**
 	 * @type {Player.State}
@@ -129,6 +130,24 @@ function Player(socket)
 		}
 
 		return position;
+	};
+
+	/**
+	 * this method sets the color of this player
+	 * @param color
+	 */
+	me.setColor = function (color)
+	{
+		me.color = color;
+	};
+
+	/**
+	 * This method returns the color of this player
+	 * @returns {null|*}
+	 */
+	me.getColor = function ()
+	{
+		return me.color;
 	}
 }
 

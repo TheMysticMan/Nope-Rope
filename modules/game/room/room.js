@@ -75,12 +75,17 @@ function Room(id)
 	me.addPlayer = function (player)
 	{
 		player.setSpeed(me._defaultRoomSpeed);
+		player.setColor(me.getColor());
 		me.players.getSource().push(player);
 		me.sendMessage(RoomMsg.PlayerJoinedMessage.messageName, new RoomMsg.PlayerJoinedMessage(player, me.id), {exclude : Enumerable.from([player])});
 
 		me.addPlayerEventListeners(player);
 	};
 
+	me.getColor = function ()
+	{
+		return Room.Colors[me.players.count() -1];
+	};
 	/**
 	 * This method removes a player from the room
 	 * to let the other players know send an update to all the other players
@@ -379,8 +384,7 @@ function Room(id)
 		var col = me.board[position.x];
 		if (col)
 		{
-			var a =  col[position.y] != null || col[position.y] != undefined;
-			return a;
+			return col[position.y] != null || col[position.y] != undefined;
 		}
 		else
 		{
@@ -396,10 +400,16 @@ function Room(id)
 	 */
 	me.isPositionOnBoard = function (position)
 	{
-		var a = position.x >= 0 &&  position.x < me.boardSize.x && position.y  >= 0 && position.y < me.boardSize.y;
-		return a;
+		return position.x >= 0 &&  position.x < me.boardSize.x && position.y  >= 0 && position.y < me.boardSize.y;
 	};
 	//endregion
 }
+
+Room.Colors = [
+	"#ff00ff",
+	"#0000ff",
+	"#ffff00",
+	"#00ff00"
+];
 
 module.exports = exports = Room;

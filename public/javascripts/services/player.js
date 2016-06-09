@@ -4,7 +4,7 @@ angular.module('app.services')
 		function Player(game, id, color) {
 			this.id = id;
 			this.game = game;
-			this.color = color == "" ? "#ff00a2" : color;
+			this.color = color;
 			this.bodies = new Array();
 			this.size = 10;
 		}
@@ -20,7 +20,7 @@ angular.module('app.services')
 			for (var i = this.bodies.length - 2; i >= 0; i--) {
 				var body = this.bodies[i];
 
-				this.game.debug.geom(body, '#ff00a2');
+				this.game.debug.geom(body, this.color);
 			};
 
 			//draw head

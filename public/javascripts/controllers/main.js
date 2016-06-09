@@ -14,7 +14,7 @@ angular.module('app.controllers').controller('mainController', function ($scope,
 		socket.on("Player joined", function(data)
 		{
 			console.log("player "+ data.newPlayer.id + " joined");
-			$scope.players[data.newPlayer.id] = new Player($scope.game, data.newPlayer.id);
+			$scope.players[data.newPlayer.id] = new Player($scope.game, data.newPlayer.id, data.newPlayer.color);
 		});
 
 		socket.on("Player left", function(data)
@@ -27,7 +27,7 @@ angular.module('app.controllers').controller('mainController', function ($scope,
 		{
 			for (var i = 0; i < connectedPlayers.length; i++) {
 				var p = connectedPlayers[i];
-				$scope.players[p.id] = new Player($scope.game, p.id);
+				$scope.players[p.id] = new Player($scope.game, p.id, p.color);
 			};
 			
 		});

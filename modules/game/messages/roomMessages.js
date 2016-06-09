@@ -16,8 +16,9 @@ function PlayerJoinedMessage(player, roomId)
 	var me = this;
 	me.roomId = roomId;
 	me.newPlayer = {
-		name : player.name,
-		id   : player.id
+		name  : player.name,
+		id    : player.id,
+		color : player.getColor()
 	}
 }
 PlayerJoinedMessage.messageName = "Player joined";
@@ -56,7 +57,8 @@ function GameStartedMessage(roomId, players)
 			id        : player.id,
 			name      : player.name,
 			position  : player.getCurrentPosition(),
-			direction : player.getDirection()
+			direction : player.getDirection(),
+			color     : player.getColor()
 		};
 		me.players.push(dto);
 	})
