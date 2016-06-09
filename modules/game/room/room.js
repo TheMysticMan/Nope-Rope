@@ -32,6 +32,7 @@ function Room(id)
     me.id = id;
     me.boardSize = new Size(80, 60);
     me.board = Enumerable.from([]);
+    me.isStarted = false;
     /**
      *
      * @type {Enumerable<Player>}
@@ -173,10 +174,14 @@ function Room(id)
      */
     me.startGame = function()
     {
-        console.log("Game Started");
-        me.setInitialBoardState();
-        me.sendMessage(RoomMsg.GameStartedMessage.messageName, new RoomMsg.GameStartedMessage(me.id, me.players), null);
-        me._startGameLoop();
+        if(!me.isStarted )
+        {
+            me.isStarted = true;
+            console.log("Game Started");
+            me.setInitialBoardState();
+            me.sendMessage(RoomMsg.GameStartedMessage.messageName, new RoomMsg.GameStartedMessage(me.id, me.players), null);
+            me._startGameLoop();
+        }
     };
 
     /**
