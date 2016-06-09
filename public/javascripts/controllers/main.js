@@ -13,6 +13,7 @@ angular.module('app.controllers').controller('mainController', function ($scope,
 
 		socket.emit("Join room", {name:"Demo Player", roomId: 1}, function (connectedPlayers)
 		{
+			
 		});
 setTimeout(function()
 {
@@ -27,17 +28,20 @@ setTimeout(function()
 			var playerId = playerPosition.playerId;
 			var position = playerPosition.position;
 			var roomId = playerPosition.roomId;
+
+
+
 			console.log("position update ", playerId," x:", position.x, " y:", position.y);
 		});
 
 		$scope.game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: $scope.preload, create: $scope.create, update: $scope.update, render: $scope.render });
 
-		$scope.bodySize = 10;
+		// $scope.bodySize = 10;
 		
-		$scope.players = new Array();
-		$scope.players.push({name: 'Player 2', bodies: new Array(), direction: "left", position: {x: 350, y: 350}, color:"#5bffff"});
-		$scope.players.push({name: 'Player 3', bodies: new Array(), direction: "right", position:  {x: 450, y: 250}, color:"#FF9F1E" });
-		$scope.players.push({name: 'Player 4', bodies: new Array(), direction: "right", position:  {x: 450, y: 350}, color:"#4ea683" });
+		// $scope.players = new Array();
+		// $scope.players.push({name: 'Player 2', bodies: new Array(), direction: "left", position: {x: 350, y: 350}, color:"#5bffff"});
+		// $scope.players.push({name: 'Player 3', bodies: new Array(), direction: "right", position:  {x: 450, y: 250}, color:"#FF9F1E" });
+		// $scope.players.push({name: 'Player 4', bodies: new Array(), direction: "right", position:  {x: 450, y: 350}, color:"#4ea683" });
 
 	},
 
@@ -67,49 +71,36 @@ setTimeout(function()
 			// Update local player
 			$scope.localPlayer.update();
 			
-			// if($scope.direction == "up") {
-			// 	$scope.position.y -= $scope.bodySize;
-			// }
-			// else if($scope.direction == "down") {
-			// 	$scope.position.y += $scope.bodySize;
-			// }
-			// else if($scope.direction == "left") {
-			// 	$scope.position.x -= $scope.bodySize;
-			// }
-			// else if($scope.direction == "right") {
-			// 	$scope.position.x += $scope.bodySize;
-			// }
-
 			// TODO: We should get new positions from the server. even for the localplayer
 			//$scope.bodies.push(new Phaser.Rectangle($scope.position.x, $scope.position.y, $scope.bodySize, $scope.bodySize));
 
 			// update other players
-			for (var i = 0; i < $scope.players.length; i++) {
-				var player = $scope.players[i];
+			// for (var i = 0; i < $scope.players.length; i++) {
+			// 	var player = $scope.players[i];
 
-				// random direction
-				var r = Math.random(0, 4) * 100;
-				if(r > 0 && r < 25) { player.direction = "up"; }
-				if(r > 25 && r < 50) { player.direction = "down"; }
-				if(r > 50 && r < 75) { player.direction = "left"; }
-				if(r > 75 && r < 100) { player.direction = "right"; }
+			// 	// random direction
+			// 	var r = Math.random(0, 4) * 100;
+			// 	if(r > 0 && r < 25) { player.direction = "up"; }
+			// 	if(r > 25 && r < 50) { player.direction = "down"; }
+			// 	if(r > 50 && r < 75) { player.direction = "left"; }
+			// 	if(r > 75 && r < 100) { player.direction = "right"; }
 
-				if(player.direction == "up") {
-					player.position.y -= $scope.bodySize;
-				}
-				else if(player.direction == "down") {
-					player.position.y += $scope.bodySize;
-				}
-				else if(player.direction == "left") {
-					player.position.x -= $scope.bodySize;
-				}
-				else if(player.direction == "right") {
-					player.position.x += $scope.bodySize;
-				}
+			// 	if(player.direction == "up") {
+			// 		player.position.y -= $scope.bodySize;
+			// 	}
+			// 	else if(player.direction == "down") {
+			// 		player.position.y += $scope.bodySize;
+			// 	}
+			// 	else if(player.direction == "left") {
+			// 		player.position.x -= $scope.bodySize;
+			// 	}
+			// 	else if(player.direction == "right") {
+			// 		player.position.x += $scope.bodySize;
+			// 	}
 
-				player.bodies.push(new Phaser.Rectangle(player.position.x, player.position.y, $scope.bodySize, $scope.bodySize));
+			// 	player.bodies.push(new Phaser.Rectangle(player.position.x, player.position.y, $scope.bodySize, $scope.bodySize));
 				
-			}
+			// }
 		}
 	}
 

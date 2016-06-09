@@ -6,7 +6,7 @@ angular.module('app.services')
 			this.direction = "left";
 			this.setupControls();
 
-			this.player = new Player(game);
+			// this.player = new Player(game);
 		}
 
 		LocalPlayer.prototype.setupControls = function() {

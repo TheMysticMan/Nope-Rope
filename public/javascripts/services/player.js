@@ -1,16 +1,18 @@
 angular.module('app.services')
 	.factory('Player', function ($q, socket) {
 
-		function Player(game) {
+		function Player(game, id, color) {
+			this.id = id;
 			this.game = game;
-			this.color = "";
+			this.color = color;
 			this.bodies = new Array();
-			
-			debugger;
+			this.size = 10;
+
+			//debugger;
 		}
 
-		Player.prototype.update = function() {
-
+		Player.prototype.move = function(x, y) {
+			this.bodies.push(new Phaser.Rectangle(x, y, this.size, this.size));
 		}
 
 		Player.prototype.render = function() {
