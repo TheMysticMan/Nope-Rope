@@ -4,47 +4,81 @@ html, body {
   overflow: hidden;
 }
 
-body h1 {
-  height: 64px;
-  line-height: 64px;
-  text-align: center;
-  color: white;
+*, :after, :before {
+  box-sizing: border-box;
 }
 
-body canvas {
-  margin-left: auto;
-  margin-right: auto;
+body {
+  margin-top: 50px;
+  margin-left: 50px;
+  background-color: #1f2324;
+}
+
+body #game {
+  float: left;
+}
+
+body #game canvas {
   border: 5px solid gray;
-  margin-top: 64px;
+}
+
+body #game h1#event {
+  color: white;
+  text-align: center;
+  padding-top: 25px;
+  position: absolute;
+  width: 800px;
+}
+
+body #info {
+  float: left;
+  width: 300px;
+  height: 600px;
+  font-family: geosanslight-nmsregular;
+  color: white;
+  border-top: 5px solid gray;
+  border-right: 5px solid gray;
+  border-bottom: 5px solid gray;
+}
+
+body #info button {
+  background-color: #FF9F1E;
+  width: 295px;
+  height: 75px;
+  text-transform: uppercase;
+  font-size: 32px;
+  font-weight: bold;
+  border: none;
+  padding: 0;
+  border-bottom: 5px solid gray;
+}
+
+body #info ul#players {
+  padding: 20px;
+  list-style: none;
+}
+
+body #info ul#players h2 {
+  color: #ff00a2;
+}
+
+body #info ul#players li {
+  font-size: 20px;
 }
 
 h1, h2, h3, h4, h5 {
   margin-top: 0px;
   margin-bottom: 0px;
+  font-family: geosanslight-nmsregular;
+  text-transform: uppercase;
 }
 
-.background {
-  background-color: #1f2324;
-  background-position: center center;
-  background-size: cover;
-  height: 100vh;
-  width: 100vw;
-  position: fixed;
-  z-index: -1;
-}
-
-.grid {
-  background-image: url("/images/grid.png");
-  background-position: left top;
-  background-size: initial;
-  height: 100vh;
-  width: 100vw;
-  position: fixed;
-  z-index: -1;
-}
-
-.grid.points {
-  background-image: url("/images/grid_point.png");
+@font-face {
+  font-family: 'geosanslight-nmsregular';
+  src: url("http://www.no-mans-sky.com/elk/wp-content/themes/nomanssky/fonts/geonms-webfont.eot");
+  src: url("http://www.no-mans-sky.com/elk/wp-content/themes/nomanssky/fonts/geonms-webfont.eot?#iefix") format("embedded-opentype"), url("http://www.no-mans-sky.com/elk/wp-content/themes/nomanssky/fonts/geonms-webfont.woff") format("woff"), url("http://www.no-mans-sky.com/elk/wp-content/themes/nomanssky/fonts/geonms-webfont.ttf") format("truetype"), url("http://www.no-mans-sky.com/elk/wp-content/themes/nomanssky/fonts/geonms-webfont.svg#geosanslight-nmsregular") format("svg");
+  font-weight: normal;
+  font-style: normal;
 }
 
 /*# sourceMappingURL=style.css.map */

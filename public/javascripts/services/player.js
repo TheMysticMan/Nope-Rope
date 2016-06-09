@@ -1,9 +1,10 @@
 angular.module('app.services')
 	.factory('Player', function ($q, socket) {
 
-		function Player(game, id, color) {
+		function Player(game, id, name, color) {
 			this.id = id;
 			this.game = game;
+			this.name = name;
 			this.color = color == "" ? "#ff00a2" : color;
 			this.bodies = new Array();
 			this.size = 10;

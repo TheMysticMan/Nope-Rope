@@ -1,4 +1,12 @@
-div#home
-	//h1 Nope-Rope
-	button(ng-click="leave()" hidden) Leave
-	button(ng-click="startgame()") Start
+div#wrapper(data-ng-init="init()")
+	#game
+		h1#event This is a test event
+	#info
+		button(ng-click="leave()" hidden) Leave
+		button(ng-click="startgame()") Start
+		ul#players
+			h2 Players
+			li(ng-repeat="player in players")
+				span {{player.name}} 
+					span.pull-right READY!
+		
