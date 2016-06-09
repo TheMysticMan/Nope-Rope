@@ -5,8 +5,6 @@ angular.module('app.services')
 			this.game = game;
 			this.direction = "left";
 			this.setupControls();
-
-			// this.player = new Player(game);
 		}
 
 		LocalPlayer.prototype.setupControls = function() {
@@ -48,14 +46,6 @@ angular.module('app.services')
 				console.log("new direction:", this.direction)
 				socket.emit("update direction", this.direction, function(err, msg) {});
 			}
-		}
-
-		LocalPlayer.prototype.update = function() {
-
-		}
-
-		LocalPlayer.prototype.render = function() {
-
 		}
 
 		return LocalPlayer;
