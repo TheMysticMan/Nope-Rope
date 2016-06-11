@@ -10,6 +10,11 @@ angular.module('app.controllers').controller('mainController', function ($scope,
 		$scope.colors.push("#FF9F1E");
 		$scope.colors.push("#4ea683");
 
+		socket.emit("Get HighScores", function()
+		{
+
+		});
+
 		socket.on("Player joined", function(data)
 		{
 			console.log("player "+ data.newPlayer.id + " joined");
@@ -50,6 +55,11 @@ angular.module('app.controllers').controller('mainController', function ($scope,
 			console.log("position update ", playerId," x:", position.x, " y:", position.y);
 
 		});
+
+		socket.on("Game stopped", function (data)
+		{
+			console.dir(data.highScores);
+		})
 	},
 
 	$scope.preload = function() {

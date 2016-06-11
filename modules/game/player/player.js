@@ -3,14 +3,16 @@
  */
 
 var currentPlayerCount = 0;
+var HighScore = require("./../../models/highscore");
+var Guid = require("guid");
+var Enumerable = require("linq");
 
-var /**
+/**
  * @return {number}
  */
-GeneratePlayerId = function ()
+var GeneratePlayerId = function ()
 {
-	currentPlayerCount++;
-	return currentPlayerCount;
+	return Guid.raw();
 };
 
 /**
@@ -29,6 +31,9 @@ function Player(socket)
 	me.currentPosition = null;
 	me.direction = null;
 	me.color = null;
+	me.score = 0;
+
+	me._highScoreEntity = new HighScore({playerId:me.id, score: [], date: new Date()});
 
 	/**
 	 * @type {Player.State}
@@ -42,6 +47,25 @@ function Player(socket)
 	 * @private
 	 */
 	me._speed = 0;
+
+	/**
+	 * this method sets the name of this player
+	 * @param name
+	 */
+	me.setName = function (name)
+	{
+		me.name = name;
+		me._highScoreEntity.playerName = name;
+	};
+
+	/**
+	 * This method returns the name of this player
+	 * @returns {string|*}
+	 */
+	me.getName = function ()
+	{
+		return me.name;
+	};
 
 	/**
 	 * This method sets the state of the player
@@ -148,6 +172,50 @@ function Player(socket)
 	me.getColor = function ()
 	{
 		return me.color;
+	};
+
+	/**
+	 * This method sets the score of this player
+	 * @param score {Number}
+	 */
+	me.setScore = function (score)
+	{
+		me.score = score;
+	};
+
+	/**
+	 * This methods returns the score of this player
+	 * @returns {Number}
+	 */
+	me.getScore = function ()
+	{
+		return me.score;
+	};
+
+	/**
+	 * this method saves the new highscore
+	 */
+	me.saveScore = function (date, roomId)
+	{
+		me._highScoreEntity.scores.push({score: me.getScore(), date: date, roomId: roomId});
+		me.saveHighScoreEntity();
+	};
+
+	/**
+	 * This method saves the highscore enity of this player
+	 */
+	me.saveHighScoreEntity = function ()
+	{
+		me._highScoreEntity.save();
+	};
+
+	/**
+	 * This method returns the highscores for a roomId
+	 * @param roomId
+	 */
+	me.getHighScoresForRoom = function (roomId)
+	{
+		return Enumerable.from(me._highScoreEntity.scores).where(function(score){return score.roomId == roomId}).toArray();
 	}
 }
 

@@ -83,7 +83,7 @@ function GameController()
     me.onPlayerJoinRoom = function (connectedPlayer, data, callback)
     {
         var room = roomFactory.getRoom(data.roomId);
-        connectedPlayer.name = data.name;
+        connectedPlayer.setName(data.name);
         connectedPlayer.room = room;
         room.addPlayer(connectedPlayer);
         callback(connectedPlayer.id, room.getPlayers());

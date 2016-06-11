@@ -8,6 +8,9 @@ var bodyParser = require('body-parser');
 var sass = require('node-sass-middleware');
 var routes = require('./routes');
 var exec = require('child_process').exec;
+var mongoose = require("mongoose");
+var HighScoreService = require("./modules/services/highScoreService");
+var ApiRouter = require("./modules/api/router");
 
 var app = express();
 var server = http.createServer(app);
@@ -41,9 +44,14 @@ app.get('/', routes.index);
 app.get('/pages/:page', routes.pages);
 app.get('/pages/:page/:subpage', routes.subpages);
 app.get('/partials/:name', routes.partials);
+app.use('/api', ApiRouter);
 app.get('*', routes.index);
 
 app.set('port', process.env.PORT || 8080);
+
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/noperopedb");
+
+HighScoreService.getHighScoresForToday(1,1,function(){});
 
 server.listen(app.get('port'), function() {
 	console.log('Listening on port ' + app.get('port'));
