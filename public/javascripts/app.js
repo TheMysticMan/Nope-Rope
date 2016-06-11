@@ -33,7 +33,7 @@ app.config(function($routeProvider, $locationProvider) {
     .when('/page2', {
         templateUrl : 'pages/page2/index.jade',
         //controller  : 'mainController',
-    })
+    });
 
     $locationProvider.html5Mode(true);
 

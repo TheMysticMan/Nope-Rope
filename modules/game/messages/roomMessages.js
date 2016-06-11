@@ -115,11 +115,13 @@ PlayerDeadMessage.messageName = "Player dead";
  * This class defines the message that is send to the clients when the game is stopped
  * @param roomId
  * @constructor
+ * @param highScores
  */
-function GameStoppedMessage(roomId)
+function GameStoppedMessage(roomId, highScores)
 {
 	var me = this;
 	me.roomId = roomId;
+	me.highScores = highScores;
 }
 GameStoppedMessage.messageName = "Game stopped";
 
