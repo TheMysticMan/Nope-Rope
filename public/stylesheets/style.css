@@ -12,6 +12,8 @@ body {
   margin-top: 50px;
   margin-left: 50px;
   background-color: #1f2324;
+  text-transform: uppercase;
+  font-family: geosanslight-nmsregular;
 }
 
 body #game {
@@ -34,7 +36,6 @@ body #info {
   float: left;
   width: 300px;
   height: 600px;
-  font-family: geosanslight-nmsregular;
   color: white;
   border-top: 5px solid gray;
   border-right: 5px solid gray;
@@ -75,8 +76,8 @@ h1, h2, h3, h4, h5 {
 
 @font-face {
   font-family: 'geosanslight-nmsregular';
-  src: url("https://www.no-mans-sky.com/elk/wp-content/themes/nomanssky/fonts/geonms-webfont.eot");
-  src: url("https://www.no-mans-sky.com/elk/wp-content/themes/nomanssky/fonts/geonms-webfont.eot?#iefix") format("embedded-opentype"), url("https://www.no-mans-sky.com/elk/wp-content/themes/nomanssky/fonts/geonms-webfont.woff") format("woff"), url("https://www.no-mans-sky.com/elk/wp-content/themes/nomanssky/fonts/geonms-webfont.ttf") format("truetype"), url("https://www.no-mans-sky.com/elk/wp-content/themes/nomanssky/fonts/geonms-webfont.svg#geosanslight-nmsregular") format("svg");
+  src: url("/fonts/geonms-webfont.eot");
+  src: url("/fonts/geonms-webfont.eot?#iefix") format("embedded-opentype"), url("/fonts/geonms-webfont.woff") format("woff"), url("/fonts/geonms-webfont.ttf") format("truetype"), url("/fonts/geonms-webfont.svg#geosanslight-nmsregular") format("svg");
   font-weight: normal;
   font-style: normal;
 }

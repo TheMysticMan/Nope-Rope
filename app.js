@@ -18,6 +18,8 @@ var server = http.createServer(app);
 var sockets = new require('./modules/sockets');
 sockets.listen(server);
 
+var tts = new require('./modules/tts');
+
 var gameController = require("./modules/game/gameController");
 
 // view engine setup
