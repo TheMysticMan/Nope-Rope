@@ -2,7 +2,7 @@ angular.module('app.controllers').controller('mainController', function ($scope,
 
 	$scope.init = function() {
 
-		$scope.game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: $scope.preload, create: $scope.create, update: $scope.update, render: $scope.render });
+		$scope.game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', { preload: $scope.preload, create: $scope.create, update: $scope.update, render: $scope.render });
 		$scope.players = new Array();
 		$scope.colors = new Array();
 		$scope.colors.push("#ff00a2");
@@ -10,12 +10,11 @@ angular.module('app.controllers').controller('mainController', function ($scope,
 		$scope.colors.push("#FF9F1E");
 		$scope.colors.push("#4ea683");
 
-
 		socket.on("Player joined", function(data)
 		{
 			console.log("player "+ data.newPlayer.id + " joined");
-			$scope.players[data.newPlayer.id] = new Player($scope.game, data.newPlayer.id, data.newPlayer.color);
 			console.log("color: ", data.newPlayer.color);
+			$scope.players.push(new Player($scope.game, data.newPlayer.id, data.newPlayer.name, data.newPlayer.color));
 		});
 
 		socket.on("Player left", function(data)
@@ -28,8 +27,8 @@ angular.module('app.controllers').controller('mainController', function ($scope,
 		{
 			for (var i = 0; i < connectedPlayers.length; i++) {
 				var p = connectedPlayers[i];
-				$scope.players[p.id] = new Player($scope.game, p.id, p.color);
 				console.log("color: ", p.color);
+				$scope.players.push(new Player($scope.game, p.id, p.name, p.color));
 			};
 			
 		});
@@ -40,9 +39,15 @@ angular.module('app.controllers').controller('mainController', function ($scope,
 			var position = playerPosition.position;
 			var roomId = playerPosition.roomId;
 
-			$scope.players[playerId].move(position);
+			for (var i = 0; i < $scope.players.length; i++) {
+				var player = $scope.players[i];
 
-			//console.log("position update ", playerId," x:", position.x, " y:", position.y);
+				if(player.id == playerId) {
+					player.move(position)
+				}
+			};
+			
+			console.log("position update ", playerId," x:", position.x, " y:", position.y);
 
 		});
 	},
