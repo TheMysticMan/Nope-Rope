@@ -3,6 +3,7 @@ angular.module('app.controllers').controller('mainController', function ($scope,
 	$scope.init = function() {
 
 		$scope.game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', { preload: $scope.preload, create: $scope.create, update: $scope.update, render: $scope.render });
+
 		$scope.players = new Array();
 		$scope.colors = new Array();
 		$scope.colors.push("#ff00a2");
@@ -53,19 +54,16 @@ angular.module('app.controllers').controller('mainController', function ($scope,
 	},
 
 	$scope.preload = function() {
-        console.log('preload');
-    },
+		console.log('preload');
+
+		$scope.game.stage.backgroundColor = "#1f2324";
+		$scope.game.stage.disableVisibilityChange = true;
+		$scope.timeCheck = $scope.game.time.now;
+		$scope.localPlayer = new LocalPlayer($scope.game);
+	},
 
 	$scope.create = function() {
 		console.log('create');
-		
-		$scope.game.stage.backgroundColor = "#1f2324";
-    	$scope.game.world.setBounds(0, 0, 800, 600);
-    	$scope.game.physics.startSystem(Phaser.Physics.ARCADE);
-
-    	$scope.timeCheck = $scope.game.time.now;
-
-    	$scope.localPlayer = new LocalPlayer($scope.game);
 	},
 
 	$scope.update = function() {
