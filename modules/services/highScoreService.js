@@ -121,6 +121,7 @@ var HighScoreService = new function()
         {
             var newObject = {
                 playerId : h.playerId,
+                playerName: h.playerName,
                 date: h.date,
                 score : me.calculateAverage(h.scores)
             };

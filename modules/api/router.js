@@ -5,15 +5,33 @@ var express = require("express");
 var router = express.Router();
 var HighScoreService = require("./../services/highScoreService");
 
-router.get("/highscores/today/:skip/:take", function(req, res)
+router.get("/highscores", function(req, res)
 {
-    HighScoreService.getHighScoresForToday(parseInt(req.params.skip), parseInt(req.params.take), function(highscores)
+    var method = null;
+    switch(req.query.timespan)
+    {
+
+        case "today":
+            method = HighScoreService.getHighScoresForToday;
+            break;
+        case "week":
+            method = HighScoreService.getHighScoresForWeek;
+            break;
+        case "month":
+            method = HighScoreService.getHighScoresForMonth;
+            break;
+        case "all":
+            method = HighScoreService.getAllHighScores;
+            break;
+    }
+
+    method(parseInt(req.query.skip), parseInt(req.query.take), function(highscores)
     {
         res.json(highscores);
     });
 });
 
-router.get("/highscores/week/:skip/:take", function(req, res)
+/*router.get("/highscores/week/:skip/:take", function(req, res)
 {
     HighScoreService.getHighScoresForWeek(parseInt(req.params.skip), parseInt(req.params.take), function(highscores)
     {
@@ -34,5 +52,5 @@ router.get("/highscores/all/:skip/:take", function(req, res)
     {
         res.json(highscores);
     });
-});
+});*/
 module.exports = exports = router;
