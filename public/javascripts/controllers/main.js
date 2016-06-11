@@ -10,11 +10,6 @@ angular.module('app.controllers').controller('mainController', function ($scope,
 		$scope.colors.push("#FF9F1E");
 		$scope.colors.push("#4ea683");
 
-		socket.emit("Get HighScores", function()
-		{
-
-		});
-
 		socket.on("Player joined", function(data)
 		{
 			console.log("player "+ data.newPlayer.id + " joined");
