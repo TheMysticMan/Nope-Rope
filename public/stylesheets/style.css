@@ -67,6 +67,19 @@ body #info ul#players li {
   font-size: 20px;
 }
 
+body #highscore_modal {
+  width: 50%;
+  margin: 10% auto;
+  height: auto;
+  background-color: white;
+  border-radius: 1%;
+  box-shadow: 0 0 17px #FF9F1E;
+}
+
+body #highscore_modal .content {
+  margin: 5%;
+}
+
 h1, h2, h3, h4, h5 {
   margin-top: 0px;
   margin-bottom: 0px;

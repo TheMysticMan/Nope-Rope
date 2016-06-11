@@ -1,5 +1,11 @@
 angular.module('app.controllers').controller('mainController', function ($scope, socket, cfpLoadingBar, LocalPlayer, Player) {
 
+	/**
+	 * this will hold our playerId
+	 * @type {null}
+	 */
+	$scope.playerId = null;
+
 	$scope.init = function() {
 
 		$scope.game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', { preload: $scope.preload, create: $scope.create, update: $scope.update, render: $scope.render });
@@ -10,15 +16,9 @@ angular.module('app.controllers').controller('mainController', function ($scope,
 		$scope.colors.push("#5bffff");
 		$scope.colors.push("#FF9F1E");
 		$scope.colors.push("#4ea683");
-
 		socket.on("Say", function(filename)
 		{
 			$('audio#tts').attr('src', filename).trigger('play'); 
-		});
-
-		socket.emit("Get HighScores", function()
-		{
-
 		});
 
 		socket.on("Player joined", function(data)
@@ -36,6 +36,7 @@ angular.module('app.controllers').controller('mainController', function ($scope,
 
 		socket.emit("Join room", {name:"Demo Player", roomId: 1}, function (playerId, connectedPlayers)
 		{
+			$scope.playerId = playerId;
 			for (var i = 0; i < connectedPlayers.length; i++) {
 				var p = connectedPlayers[i];
 				console.log("color: ", p.color);
@@ -62,10 +63,21 @@ angular.module('app.controllers').controller('mainController', function ($scope,
 
 		});
 
+		socket.on("Game started", function(data)
+		{
+			var players = data.players;
+			players.forEach(function(p){
+				if(p.id == $scope.playerId)
+				{
+					$scope.localPlayer.updateDirection(p.direction)
+				}
+			})
+		});
 		socket.on("Game stopped", function (data)
 		{
-			console.dir(data.highScores);
-		})
+			$scope.highScores = data.highScores;
+			$('#highscore_modal').modal('show');
+		});
 	},
 
 	$scope.preload = function() {
@@ -103,5 +115,20 @@ angular.module('app.controllers').controller('mainController', function ($scope,
 		{
 
 		});
+	}
+	
+	$scope.restartGame = function ()
+	{
+		$('#highscore_modal').modal('hide');
+		$scope.clearBoard();
+		$scope.startgame();
+	};
+
+	$scope.clearBoard = function ()
+	{
+		for(var p in $scope.players) {
+			$scope.players[p].clearBodies();
+			$scope.players[p].render();
+		}
 	}
 });

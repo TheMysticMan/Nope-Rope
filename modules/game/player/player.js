@@ -137,7 +137,21 @@ function Player(socket)
 	me.getDirection = function()
 	{
 		return me.direction;
-	}
+	};
+
+	/**
+	 *
+	 */
+	me.getDirectionString = function ()
+	{
+		for(var direction in Direction)
+		{
+			if(Direction.hasOwnProperty(direction) && Direction[direction] == me.direction)
+			{
+				return direction;
+			}
+		}
+	};
 
 	/**
 	 * This method returns the new position for the amount of steps
@@ -195,9 +209,9 @@ function Player(socket)
 	/**
 	 * this method saves the new highscore
 	 */
-	me.saveScore = function (date, roomId)
+	me.saveScore = function (date, maxScore, roomId)
 	{
-		me._highScoreEntity.scores.push({score: me.getScore(), date: date, roomId: roomId});
+		me._highScoreEntity.scores.push({score: me.getScore(), date: date, roomId: roomId, maxPoints: maxScore});
 		me.saveHighScoreEntity();
 	};
 

@@ -57,7 +57,7 @@ function GameStartedMessage(roomId, players)
 			id        : player.id,
 			name      : player.name,
 			position  : player.getCurrentPosition(),
-			direction : player.getDirection(),
+			direction : player.getDirectionString(),
 			color     : player.getColor()
 		};
 		me.players.push(dto);

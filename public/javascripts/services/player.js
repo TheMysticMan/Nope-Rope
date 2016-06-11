@@ -29,6 +29,10 @@ angular.module('app.services')
 			this.game.debug.geom(head, '#ffffff');
 		}
 
+		Player.prototype.clearBodies = function ()
+		{
+			this.bodies = [];
+		}
 		return Player;
 
 	});

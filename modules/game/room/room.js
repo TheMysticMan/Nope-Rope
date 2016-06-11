@@ -210,9 +210,9 @@ function Room(id)
      */
     me.stopGame = function ()
     {
-        me.players.forEach(function(p)
+        me.players.forEach(function (p)
         {
-            p.saveScore(new Date(), me.id);
+            p.saveScore(new Date(), me.players.count()-1, me.id);
         });
 
         console.log("Game stopped");
@@ -365,8 +365,12 @@ function Room(id)
             me.sendMessage(RoomMsg.PlayerDeadMessage.messageName, new RoomMsg.PlayerDeadMessage(me.id, player.id), null);
         });
         var deadPlayerCount = deadPlayers.length;
-        var alivePlayers = me.players.where(function(p){return p.getState() == Player.Player.State.Alive});
-        alivePlayers.forEach(function(p){
+        var alivePlayers = me.players.where(function (p)
+        {
+            return p.getState() == Player.Player.State.Alive
+        });
+        alivePlayers.forEach(function (p)
+        {
             p.setScore(p.getScore() + deadPlayerCount);
         });
 
@@ -427,16 +431,17 @@ function Room(id)
      * This method retuns the highscores for this room
      * @returns {*}
      */
-    me.getHighScores = function()
+    me.getHighScores = function ()
     {
-        return me.players.select(function(player)
+        return me.players.select(function (player)
         {
             var highScores = player.getHighScoresForRoom(me.id);
             return {
                 playerId: player.id,
-                scores : HighScoreService.calculateAverage(highScores)
+                playerName: player.getName(),
+                score: HighScoreService.calculateAverage(highScores)
             }
-        }).toArray();
+        }).orderByDescending(function(h){return h.score.percentage}).toArray();
     };
     //endregion
 }
@@ -450,10 +455,10 @@ Room.Colors = [
 
 Room.Board = {
     StartPosition: [
-        {position : new Player.Position(10, 10), direction : Player.Direction.down},
-        {position : new Player.Position(10, 50), direction : Player.Direction.up},
-        {position : new Player.Position(70, 10), direction : Player.Direction.left},
-        {position : new Player.Position(70, 50), direction : Player.Direction.left}
+        {position: new Player.Position(10, 10), direction: Player.Direction.down},
+        {position: new Player.Position(10, 50), direction: Player.Direction.up},
+        {position: new Player.Position(70, 10), direction: Player.Direction.left},
+        {position: new Player.Position(70, 50), direction: Player.Direction.left}
     ]
 }
 
