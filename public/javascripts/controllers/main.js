@@ -13,8 +13,8 @@ angular.module('app.controllers').controller('mainController', function ($scope,
 		socket.on("Player joined", function(data)
 		{
 			console.log("player "+ data.newPlayer.id + " joined");
-			$scope.players.push(new Player($scope.game, data.newPlayer.id, data.newPlayer.name, $scope.colors[1]));
-
+			console.log("color: ", data.newPlayer.color);
+			$scope.players.push(new Player($scope.game, data.newPlayer.id, data.newPlayer.name, data.newPlayer.color));
 		});
 
 		socket.on("Player left", function(data)
@@ -27,7 +27,8 @@ angular.module('app.controllers').controller('mainController', function ($scope,
 		{
 			for (var i = 0; i < connectedPlayers.length; i++) {
 				var p = connectedPlayers[i];
-				$scope.players.push(new Player($scope.game, p.id, p.name));
+				console.log("color: ", p.color);
+				$scope.players.push(new Player($scope.game, p.id, p.name, p.color));
 			};
 			
 		});

@@ -21,7 +21,7 @@ angular.module('app.services')
 			for (var i = this.bodies.length - 2; i >= 0; i--) {
 				var body = this.bodies[i];
 
-				this.game.debug.geom(body, '#ff00a2');
+				this.game.debug.geom(body, this.color);
 			};
 
 			//draw head
