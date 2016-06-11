@@ -4,6 +4,7 @@
 var express = require("express");
 var router = express.Router();
 var HighScoreService = require("./../services/highScoreService");
+var roomFactory = require("./../game/room/roomFactory");
 
 router.get("/highscores", function(req, res)
 {
@@ -31,26 +32,14 @@ router.get("/highscores", function(req, res)
     });
 });
 
-/*router.get("/highscores/week/:skip/:take", function(req, res)
+router.get("/rooms", function(req, res)
 {
-    HighScoreService.getHighScoresForWeek(parseInt(req.params.skip), parseInt(req.params.take), function(highscores)
-    {
-        res.json(highscores);
-    });
-});
-router.get("/highscores/month/:skip/:take", function(req, res)
-{
-    HighScoreService.getHighScoresForMonth(parseInt(req.params.skip), parseInt(req.params.take), function(highscores)
-    {
-        res.json(highscores);
-    });
+    res.json({rooms: roomFactory.getRooms()});
 });
 
-router.get("/highscores/all/:skip/:take", function(req, res)
+router.post("/rooms", function(req,res)
 {
-    HighScoreService.getAllHighScores(parseInt(req.params.skip), parseInt(req.params.take), function(highscores)
-    {
-        res.json(highscores);
-    });
-});*/
+    res.json({room: {id: roomFactory.createRoom(req.body.name)}});
+});
+
 module.exports = exports = router;

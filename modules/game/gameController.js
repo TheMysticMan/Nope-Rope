@@ -84,9 +84,15 @@ function GameController()
     {
         var room = roomFactory.getRoom(data.roomId);
         connectedPlayer.setName(data.name);
-        connectedPlayer.room = room;
-        room.addPlayer(connectedPlayer);
-        callback(connectedPlayer.id, room.getPlayers());
+        if(room.addPlayer(connectedPlayer))
+        {
+            connectedPlayer.room = room;
+            callback(connectedPlayer.id, room.getPlayers());
+        }
+        else
+        {
+            callback(false);
+        }
     };
 
     me.addPostalListeners();
