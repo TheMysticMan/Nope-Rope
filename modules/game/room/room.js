@@ -6,6 +6,7 @@ var Player = require("./../player/player");
 var RoomMsg = require("./../messages/roomMessages");
 var socketWrapper = require("./../../sockets");
 var HighScoreService = require("./../../services/highScoreService");
+var tts = require('./../../tts');
 /**
  * this holds the interval in milliseconds in which the board will be updated
  * @type {number}
@@ -79,6 +80,8 @@ function Room(id)
         player.setColor(me.getColor());
         me.sendMessage(RoomMsg.PlayerJoinedMessage.messageName, new RoomMsg.PlayerJoinedMessage(player, me.id), {exclude: Enumerable.from([player])});
 
+        tts.say(player.name + "has joined the game");
+
         me.addPlayerEventListeners(player);
     };
 
@@ -99,6 +102,8 @@ function Room(id)
         }).toArray());
 
         me.sendMessage(RoomMsg.PlayerLeftMessage.messageName, new RoomMsg.PlayerLeftMessage(player, me.id), {exclude: Enumerable.from([player])});
+
+        tts.say(player.name + "has left the game");
 
         if (me.players.count() == 0)
         {
@@ -195,6 +200,8 @@ function Room(id)
             me.setInitialBoardState();
             me.sendMessage(RoomMsg.GameStartedMessage.messageName, new RoomMsg.GameStartedMessage(me.id, me.players), null);
             me._startGameLoop();
+
+            tts.say("Let the games begin");
         }
     };
 
@@ -213,6 +220,8 @@ function Room(id)
         me.isStarted = false;
         me.board = [];
         me.sendMessage(RoomMsg.GameStoppedMessage.messageName, new RoomMsg.GameStoppedMessage(me.id, me.getHighScores()), null);
+
+        tts.say("Games over");
     };
 
     /**
@@ -336,6 +345,7 @@ function Room(id)
             else
             {
                 deadPlayers.push(newPos.player);
+                tts.say(newPos.player.name + 'has died');
             }
 
         });

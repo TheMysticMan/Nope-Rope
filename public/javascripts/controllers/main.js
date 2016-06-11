@@ -11,6 +11,11 @@ angular.module('app.controllers').controller('mainController', function ($scope,
 		$scope.colors.push("#FF9F1E");
 		$scope.colors.push("#4ea683");
 
+		socket.on("Say", function(filename)
+		{
+			$('audio#tts').attr('src', filename).trigger('play'); 
+		});
+
 		socket.emit("Get HighScores", function()
 		{
 
