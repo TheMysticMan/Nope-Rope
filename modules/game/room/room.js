@@ -75,8 +75,8 @@ function Room(id)
 	me.addPlayer = function (player)
 	{
 		player.setSpeed(me._defaultRoomSpeed);
-		player.setColor(me.getColor());
 		me.players.getSource().push(player);
+        player.setColor(me.getColor());
 		me.sendMessage(RoomMsg.PlayerJoinedMessage.messageName, new RoomMsg.PlayerJoinedMessage(player, me.id), {exclude : Enumerable.from([player])});
 
 		me.addPlayerEventListeners(player);
@@ -125,7 +125,7 @@ function Room(id)
 		}
 		return players.select(function (p)
 		{
-			return {name : p.name, id : p.id}
+			return {name : p.name, id : p.id, color: p.getColor()}
 		}).toArray();
 	};
 

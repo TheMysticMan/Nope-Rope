@@ -15,6 +15,7 @@ angular.module('app.controllers').controller('mainController', function ($scope,
 		{
 			console.log("player "+ data.newPlayer.id + " joined");
 			$scope.players[data.newPlayer.id] = new Player($scope.game, data.newPlayer.id, data.newPlayer.color);
+			console.log("color: ", data.newPlayer.color);
 		});
 
 		socket.on("Player left", function(data)
@@ -28,6 +29,7 @@ angular.module('app.controllers').controller('mainController', function ($scope,
 			for (var i = 0; i < connectedPlayers.length; i++) {
 				var p = connectedPlayers[i];
 				$scope.players[p.id] = new Player($scope.game, p.id, p.color);
+				console.log("color: ", p.color);
 			};
 			
 		});
@@ -40,7 +42,7 @@ angular.module('app.controllers').controller('mainController', function ($scope,
 
 			$scope.players[playerId].move(position);
 
-			console.log("position update ", playerId," x:", position.x, " y:", position.y);
+			//console.log("position update ", playerId," x:", position.x, " y:", position.y);
 
 		});
 	},
