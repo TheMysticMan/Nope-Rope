@@ -18,11 +18,13 @@ table.table
         td Player
         td Total Points
         td Total Games
+        td Percentage
 
     tr(ng-repeat="score in scores")
         td(ng-bind="score.playerName")
         td(ng-bind="score.score.totalPoints")
         td(ng-bind="score.score.totalGames")
+        td(ng-bind="formatPercentage(score.score.percentage)")
 
 ul.pagination
     li(ng-repeat="page in pages" ng-class="{'active':page.active}")

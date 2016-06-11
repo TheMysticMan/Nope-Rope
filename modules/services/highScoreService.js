@@ -64,7 +64,7 @@ var HighScoreService = new function()
         {
             if(!err)
             {
-                highscores = me.convert(highscores);
+                highscores = Enumerable.from(me.convert(highscores)).orderByDescending(function(h){return h.score.percentage}).toArray();
                 baseQuery.count().exec(function(err, count){
                     callback({results: highscores, totalCount : count});
                 });
@@ -91,8 +91,9 @@ var HighScoreService = new function()
         {
             if(!err)
             {
-                highscores = me.convert(highscores);
+                highscores = Enumerable.from(me.convert(highscores)).orderByDescending(function(h){return h.score.percentage}).toArray();
                 baseQuery.count().exec(function(err, count){
+
                     callback({results: highscores, totalCount : count});
                 });
             }
@@ -106,9 +107,10 @@ var HighScoreService = new function()
     {
         var list = Enumerable.from(scores);
         var totalGames = list.count();
+        var avgMaxPoints = list.average(function(x){return x.maxPoints});
         var totalPoints = list.sum(function(x){return x.score});
 
-        return {totalGames : totalGames, totalPoints: totalPoints};
+        return {totalGames : totalGames, totalPoints: totalPoints, percentage: (totalPoints * 100 / totalGames * avgMaxPoints)};
     };
 
     /**

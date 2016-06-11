@@ -6,7 +6,7 @@ angular.module('app.controllers').controller('highScoreController', function ($s
     $scope.scores = [];
     $scope.totalCount = '';
     $scope.timespan ="";
-    $scope.pageSize = 20;
+    $scope.pageSize = 10;
     $scope.pages = [];
 
     $scope.init = function ()
@@ -42,5 +42,14 @@ angular.module('app.controllers').controller('highScoreController', function ($s
         return timespan == $scope.timespan;
     };
 
+    /**
+     *
+     * @param percentage {Number}
+     */
+    $scope.formatPercentage = function (percentage)
+    {
+        return percentage.toFixed(2) + "%";
+
+    };
     $scope.init();
 });

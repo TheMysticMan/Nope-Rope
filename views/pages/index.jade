@@ -9,4 +9,21 @@ div#wrapper(data-ng-init="init()")
 			li(ng-repeat="player in players")
 				span {{player.name}} 
 					span.pull-right READY!
-		
+
+
+div#highscore_modal.modal.fade
+	div.content
+		h2 HighScores
+
+		table.table
+			head
+				td Player
+				td Total Points
+				td Total Games
+
+			tr(ng-repeat="score in highScores")
+				td(ng-bind="score.playerName")
+				td(ng-bind="score.score.totalPoints")
+				td(ng-bind="score.score.totalGames")
+
+		button.btn.btn-success(ng-click="restartGame()") Restart
