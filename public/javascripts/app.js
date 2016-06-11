@@ -21,7 +21,7 @@ app.config(function ($routeProvider, $locationProvider)
 
     $routeProvider
 
-        .when('/game', {
+        .when('/game/:roomId?', {
             templateUrl: 'pages/index.jade',
             controller: 'mainController',
         })
@@ -32,6 +32,10 @@ app.config(function ($routeProvider, $locationProvider)
         .when("/home", {
             templateUrl: "pages/home/home.jade",
             controller: "homeController"
+        })
+        .when("/rooms", {
+            templateUrl: "pages/rooms/rooms.jade",
+            controller: "roomsController"
         })
         .otherwise({redirectTo: "/home"});
 

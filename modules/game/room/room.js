@@ -26,7 +26,7 @@ function Size(x, y)
     me.y = y;
 }
 
-function Room(id)
+function Room(id, name)
 {
     var me = this;
     // initialize some default values
@@ -34,6 +34,10 @@ function Room(id)
     me.boardSize = new Size(80, 60);
     me.board = [];
     me.isStarted = false;
+    me.name = name;
+
+    me.maxPlayerCount = 4;
+
     /**
      *
      * @type {Enumerable<Player>}
@@ -75,6 +79,10 @@ function Room(id)
      */
     me.addPlayer = function (player)
     {
+        if(me.players.count() == me.maxPlayerCount)
+        {
+            return false;
+        }
         player.setSpeed(me._defaultRoomSpeed);
         me.players.getSource().push(player);
         player.setColor(me.getColor());
@@ -83,6 +91,8 @@ function Room(id)
         tts.say(player.name + "has joined the game");
 
         me.addPlayerEventListeners(player);
+        return true;
+
     };
 
     me.getColor = function ()

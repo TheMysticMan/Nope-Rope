@@ -1,0 +1,24 @@
+h1 Rooms
+button.btn.btn-success(ng-click="onCreateNewGame()") Create a new game
+table.table
+    thead
+        td Name
+        td Payers
+        td &nbsp;
+
+    tr(ng-repeat="room in rooms")
+        td(ng-bind="room.name")
+        td(ng-bind="formatPlayerCount(room)")
+        td
+            button.btn.btn-default(ng-class="{'disabled':room.isFull}" ng-click="joinRoom(room)") Join
+
+
+div#createRoom_modal.modal.fade
+    div.content
+        h2 Create Room
+
+        .form-group
+            label(for='name') Name:
+            input#name.form-control(type='text' ng-model="newGameName")
+
+        button.btn.btn-success(ng-click="createRoom()") Create
