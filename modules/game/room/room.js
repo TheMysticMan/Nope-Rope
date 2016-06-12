@@ -277,7 +277,7 @@ function Room(id, name)
 
             var random = getRandomNumber();
             player.setCurrentPosition(Room.Board.StartPosition[random].position);
-            player.setDirection(Room.Board.StartPosition[Math.floor((Math.random() * 4) )].direction);
+            player.setDirection(Room.Board.StartPosition[random].direction);
             player.setState(Player.Player.State.Alive);
             player.setScore(0);
         })
