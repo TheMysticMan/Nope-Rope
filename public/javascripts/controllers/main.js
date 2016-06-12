@@ -118,7 +118,12 @@ angular.module('app.controllers').controller('mainController', function ($scope,
         {
             console.log('create');
 
+            $scope.game.scale.onResize = $scope.resized();
             $scope.resized();
+
+            $(window).resize(function() {
+                $scope.resized();
+            });
         },
 
         $scope.update = function ()
@@ -127,6 +132,7 @@ angular.module('app.controllers').controller('mainController', function ($scope,
         }
 
         $scope.resized = function() {
+
             $scope.gameWidth = $('#gamecanvas').width() -4;
             $scope.gameHeight = 600 -4;
 
@@ -134,14 +140,7 @@ angular.module('app.controllers').controller('mainController', function ($scope,
             $scope.game.scale.minHeight = $scope.gameHeight;
             $scope.game.scale.maxWidth = $scope.gameWidth;
             $scope.game.scale.maxHeight = $scope.gameHeight;
-            
-            //$scope.game.scale.pageAlignHorizontally = true;
-            
-            if (!this.game.device.desktop) {
-                //$scope.game.scale.pageAlignHorizontally = true;
-                $scope.game.scale.forceLandscape = true;
-            }
-
+           
             $scope.game.scale.updateLayout(true);
         }
 

@@ -121,6 +121,29 @@ header nav.navbar #navbar.in ul.menu-items ul {
 
 #game.page #gamecanvas {
   border: 2px solid #FF9F1E;
+  background-color: #1f2324;
+}
+
+#game.page #info button {
+  width: 100%;
+  height: 64px;
+  font-size: 200%;
+}
+
+#game.page #info ul {
+  list-style: none;
+  padding: 0;
+  padding-top: 24px;
+  font-size: 125%;
+}
+
+#game.page #info ul li span.pull-right {
+  color: #4ea683;
+}
+
+#game.page #info h2 {
+  padding-top: 25px;
+  border-bottom: 2px solid #FF9F1E;
 }
 
 #rooms {
