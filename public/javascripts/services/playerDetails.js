@@ -15,8 +15,9 @@ angular.module('app.services')
             getPlayerReady : function ()
             {
                 var deferred = $q.defer();
-                $rootScope.$emit("showPlayerDetails", function()
+                $rootScope.$emit("showPlayerDetails", function(name)
                 {
+                    playerName = name;
                     deferred.resolve();
                 });
 
