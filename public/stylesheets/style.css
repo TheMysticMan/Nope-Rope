@@ -50,7 +50,9 @@ header nav.navbar #navbar ul li a {
   text-shadow: none;
 }
 
-header nav.navbar #navbar ul li a:hover {
+header nav.navbar #navbar ul li a:hover,
+header nav.navbar #navbar ul li a:focus {
+  background-color: transparent;
   color: #ff00a2;
 }
 
@@ -113,14 +115,16 @@ header nav.navbar #navbar.in ul.menu-items ul {
   color: #ff00a2;
 }
 
-#highscores.page table thead {
-  color: #4ea683;
-  font-size: 125%;
-  font-weight: bold;
+#game.page #gamecanvas {
+  border: 2px solid #FF9F1E;
 }
 
-#highscores.page table tbody tr td {
-  border-top: 1px solid #777;
+#rooms {
+  color: white;
+}
+
+#rooms h1 {
+  line-height: 64px;
 }
 
 html, body {
@@ -143,36 +147,6 @@ body {
   background-repeat: repeat-x;
   text-transform: uppercase;
   font-family: geosanslight-nmsregular;
-  /*#highscore_modal, #createRoom_modal, #setName_modal
-	{
-		width: 50%;
-		margin: 10% auto;
-		height: auto;
-		//background-color: white;
-		//border-radius: 1%;
-		//box-shadow: 0 0 17px #FF9F1E;
-		
-
-		.modal-content {
-			margin: 5%;
-			border: 2px solid $green;
-			border-radius: 0%;
-
-			button {
-				text-transform: uppercase;
-				background-image: none;
-				background-color: $green;
-				border-radius: 0;
-				//border: 1px solid darken($green, 5%);
-				text-shadow: none;
-				color: white;
-			}
-
-			input {
-				border-radius: 0;
-			}
-		}
-	}*/
 }
 
 body #content {
@@ -180,61 +154,38 @@ body #content {
   padding-top: 64px;
 }
 
-body #game {
-  float: left;
+body #content .page {
+  padding-top: 64px;
 }
 
-body #game h1#event {
-  color: white;
-  text-align: center;
-  padding-top: 25px;
-  position: absolute;
-  width: 800px;
+body .modal-dialog {
+  color: #333;
 }
 
-body #info {
-  float: left;
-  width: 300px;
-  height: 600px;
-  color: white;
-  border: 2px solid #FF9F1E;
-}
-
-body #info button {
-  background-color: #FF9F1E;
-  width: 295px;
-  height: 75px;
-  text-transform: uppercase;
-  font-size: 32px;
-  font-weight: bold;
-  border: none;
-  padding: 0;
-  border-bottom: 5px solid gray;
-}
-
-body #info ul#players {
-  padding: 20px;
-  list-style: none;
-}
-
-body #info ul#players h2 {
-  color: #ff00a2;
-}
-
-body #info ul#players li {
-  font-size: 20px;
-}
-
-body button.btn-success {
+body button.btn-success,
+body button.btn-default {
   text-transform: uppercase;
   background-image: none;
   background-color: #4ea683;
   border-radius: 0;
   border: 1px solid #469575;
+  text-shadow: none;
+  color: white;
 }
 
 body input.form-control {
   border-radius: 0;
+}
+
+body table thead {
+  color: #4ea683;
+  font-size: 125%;
+  font-weight: bold;
+}
+
+body table tbody tr td {
+  border-top: 1px solid #777;
+  font-size: 125%;
 }
 
 h1, h2, h3, h4, h5 {

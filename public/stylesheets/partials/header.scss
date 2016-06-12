@@ -46,7 +46,9 @@ header {
 						color: white;
 						text-shadow: none;
 					}
-					a:hover {
+					a:hover,
+					a:focus {
+						background-color: transparent;
 						color: $pink; 
 					}	
 				}

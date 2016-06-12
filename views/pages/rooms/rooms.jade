@@ -1,28 +1,29 @@
-h1 Rooms
-button.btn.btn-success(ng-click="onCreateNewGame()") Create a new game
-table.table
-    thead
-        td Name
-        td Payers
-        td &nbsp;
+div#rooms.page.container
+    //h1 Rooms
+    button.btn.btn-success(ng-click="onCreateNewGame()") Create a new room
+    table.table
+        thead
+            td Name
+            td Payers
+            td &nbsp;
 
-    tr(ng-repeat="room in rooms")
-        td(ng-bind="room.name")
-        td(ng-bind="formatPlayerCount(room)")
-        td
-            button.btn.btn-default(ng-class="{'disabled':room.isFull}" ng-click="joinRoom(room)") Join
+        tr(ng-repeat="room in rooms")
+            td(ng-bind="room.name")
+            td(ng-bind="formatPlayerCount(room)")
+            td
+                button.btn.btn-default(ng-class="{'disabled':room.isFull}" ng-click="joinRoom(room)") Join
 
 
-// Modal
-#createRoom_modal.modal.fade(role='dialog')
-    .modal-dialog
-        // Modal content
-        .modal-content
-            .modal-header
-                h4.modal-title Create new room
-            .modal-body
-                .form-group
-                    label(for='name') Name:
-                    input#name.form-control(type='text' ng-model="newGameName")
-            .modal-footer
-                button.btn.btn-success(type='button', data-dismiss='modal', ng-click="createRoom()") Create and join room
+    // Modal
+    #createRoom_modal.modal.fade(role='dialog')
+        .modal-dialog
+            // Modal content
+            .modal-content
+                .modal-header
+                    h4.modal-title Create new room
+                .modal-body
+                    .form-group
+                        label(for='name') Name:
+                        input#name.form-control(type='text' ng-model="newGameName")
+                .modal-footer
+                    button.btn.btn-success(type='button', data-dismiss='modal', ng-click="createRoom()") Create and join room

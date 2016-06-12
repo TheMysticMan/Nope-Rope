@@ -9,7 +9,7 @@ angular.module('app.controllers').controller('mainController', function ($scope,
 
     $scope.init = function ()
     {
-        $scope.game = new Phaser.Game(800, 600, Phaser.AUTO, 'game', {
+        $scope.game = new Phaser.Game(800, 600, Phaser.AUTO, 'gamecanvas', {
             preload: $scope.preload,
             create: $scope.create,
             update: $scope.update,

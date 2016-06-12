@@ -3,6 +3,8 @@
 @import "variables";
 @import "partials/header";
 @import "pages/highscores";
+@import "pages/game";
+@import "pages/rooms";
 
 html, body {
 	height: 100%;
@@ -29,102 +31,44 @@ body {
 	#content {
 		display: block;
 		padding-top: $navbar-height;
-	}
 
-	#game {
-
-		//padding-top: 25px;
-		float: left;
-
-		canvas {
-			//border: 2px solid $orange;
-		}
-
-		h1#event {
-			color: white;
-			text-align: center;
-			padding-top: 25px;
-			position: absolute;
-			width: 800px;
+		.page {
+			padding-top: 64px;
 		}
 	}
 
-	#info {
-		float: left;
-		width: 300px;
-		height: 600px;
+	.modal-dialog {
+		color: #333;
+	}
+
+	button.btn-success,
+	button.btn-default, {
+		text-transform: uppercase;
+		background-image: none;
+		background-color: $green;
+		border-radius: 0;
+		border: 1px solid darken($green, 5%);
+		text-shadow: none;
 		color: white;
-		border: 2px solid $orange;
-
-		button {
-			background-color: #FF9F1E;
-			width: 295px;
-			height: 75px;
-			text-transform: uppercase;
-			font-size: 32px;
-			font-weight: bold;
-			border: none;
-			padding: 0;
-			border-bottom: 5px solid gray;
-		}
-
-		ul#players {
-			padding: 20px;
-			list-style: none;
-
-			h2 {
-				color: #ff00a2;
-			}
-
-			li {
-				font-size: 20px;
-			}
-		}
-	}
-	/*#highscore_modal, #createRoom_modal, #setName_modal
-	{
-		width: 50%;
-		margin: 10% auto;
-		height: auto;
-		//background-color: white;
-		//border-radius: 1%;
-		//box-shadow: 0 0 17px #FF9F1E;
-		
-
-		.modal-content {
-			margin: 5%;
-			border: 2px solid $green;
-			border-radius: 0%;
-
-			button {
-				text-transform: uppercase;
-				background-image: none;
-				background-color: $green;
-				border-radius: 0;
-				//border: 1px solid darken($green, 5%);
-				text-shadow: none;
-				color: white;
-			}
-
-			input {
-				border-radius: 0;
-			}
-		}
-	}*/
-
-	button.btn-success {
-	  text-transform: uppercase;
-	  background-image: none;
-	  background-color: $green;
-	  border-radius: 0;
-	  border: 1px solid darken($green, 5%);
 	}
 
   	input.form-control {
 	  border-radius: 0;
 	}
 
-
+	table {
+		thead {
+			color: $green;
+			font-size: 125%;
+			font-weight: bold;
+		}
+		tbody {
+			tr td {
+				border-top: 1px solid #777;
+				font-size: 125%;
+			}
+		}
+	}
 }
 
 h1, h2, h3, h4, h5 {
