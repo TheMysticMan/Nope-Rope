@@ -43,12 +43,16 @@ header {
 						height: $navbar-height;
 						line-height: $navbar-height;
 						font-size: 200%;
-						color: $pink;
+						color: white;
 						text-shadow: none;
 					}
 					a:hover {
-						color: white; 
+						color: $pink; 
 					}	
+				}
+
+				li.active a{
+					color: $pink;
 				}
 
 				li a:hover {
