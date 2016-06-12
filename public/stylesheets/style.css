@@ -144,20 +144,24 @@ body {
 		width: 50%;
 		margin: 10% auto;
 		height: auto;
-		background-color: white;
+		//background-color: white;
 		//border-radius: 1%;
 		//box-shadow: 0 0 17px #FF9F1E;
-		border: 2px solid $green;
+		
 
-		.content {
+		.modal-content {
 			margin: 5%;
+			border: 2px solid $green;
+			border-radius: 0%;
 
-			button.btn-success {
+			button {
 				text-transform: uppercase;
 				background-image: none;
 				background-color: $green;
 				border-radius: 0;
-				border: 1px solid darken($green, 5%);
+				//border: 1px solid darken($green, 5%);
+				text-shadow: none;
+				color: white;
 			}
 
 			input {
@@ -225,7 +229,7 @@ body button.btn-success {
   border: 1px solid #469575;
 }
 
-body input {
+body input.form-control {
   border-radius: 0;
 }
 
