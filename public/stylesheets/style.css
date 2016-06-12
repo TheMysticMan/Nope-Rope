@@ -156,7 +156,6 @@ header nav.navbar #navbar.in ul.menu-items ul {
 
 html, body {
   height: 100%;
-  overflow: hidden;
 }
 
 *, :after, :before {
