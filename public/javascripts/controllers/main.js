@@ -136,6 +136,7 @@ angular.module('app.controllers').controller('mainController', function ($scope,
             $scope.gameWidth = $('#gamecanvas').width() -4;
             $scope.gameHeight = 600 -4;
 
+            $scope.game.scale.scaleMode = Phaser.ScaleManager.SHOW_AL
             $scope.game.scale.minWidth = $scope.gameWidth;
             $scope.game.scale.minHeight = $scope.gameHeight;
             $scope.game.scale.maxWidth = $scope.gameWidth;
