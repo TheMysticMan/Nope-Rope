@@ -140,7 +140,6 @@ angular.module('app.controllers').controller('mainController', function ($scope,
             if (!this.game.device.desktop) {
                 //$scope.game.scale.pageAlignHorizontally = true;
                 $scope.game.scale.forceLandscape = true;
-                debugger;
             }
 
             $scope.game.scale.updateLayout(true);
