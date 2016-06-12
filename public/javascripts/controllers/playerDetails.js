@@ -21,7 +21,7 @@ angular.module('app.controllers').controller('playerDetailsController', function
 
         $rootScope.$on("showPlayerDetails", function(ev, callback)
         {
-            debugger;
+            //debugger;
             $scope.callback = callback;
             $scope.show();
         })
