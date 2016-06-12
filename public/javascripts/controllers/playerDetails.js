@@ -1,7 +1,7 @@
 /**
  * Created by edoli on 12-6-2016.
  */
-angular.module('app.controllers').controller('playerDetailsController', function ($scope, $http, socket, $timeout, $rootScope)
+angular.module('app.controllers').controller('playerDetailsController', function ($scope, $http, socket, $timeout, $rootScope, $playerDetailsService)
 {
     $scope.callback = null;
 
@@ -46,7 +46,7 @@ angular.module('app.controllers').controller('playerDetailsController', function
         socket.emit("Set name", $scope.userName, function ()
         {
             $scope.hide();
-            $scope.callback();
+            $scope.callback($scope.userName);
         });
     };
     $scope.init();
