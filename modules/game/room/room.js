@@ -118,6 +118,7 @@ function Room(id, name)
         if (me.players.count() == 0)
         {
             me.stopGame();
+            me.destroy();
         }
     };
 
@@ -465,6 +466,11 @@ function Room(id, name)
             }
         }).orderByDescending(function(h){return h.score.percentage}).toArray();
     };
+
+    /**
+     * should be overwritten by the room factory
+     */
+    me.destroy = function (){}
     //endregion
 }
 
