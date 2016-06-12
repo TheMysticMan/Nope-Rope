@@ -33,4 +33,4 @@ div#highscores.page.container
     .row.container
         ul.pagination
             li(ng-repeat="page in pages" ng-class="{'active':page.active}")
-            a(ng-href="{{'highscores/'+ timespan+ '/'+ page.number}}" ng-bind="page.number")
+                a(ng-href="{{'highscores/'+ timespan+ '/'+ page.number}}" ng-bind="page.number")

@@ -195,23 +195,24 @@ body #highscore_modal, body #createRoom_modal, body #setName_modal {
   width: 50%;
   margin: 10% auto;
   height: auto;
-  background-color: white;
-  border: 2px solid #4ea683;
 }
 
-body #highscore_modal .content, body #createRoom_modal .content, body #setName_modal .content {
+body #highscore_modal .modal-content, body #createRoom_modal .modal-content, body #setName_modal .modal-content {
   margin: 5%;
+  border: 2px solid #4ea683;
+  border-radius: 0%;
 }
 
-body #highscore_modal .content button.btn-success, body #createRoom_modal .content button.btn-success, body #setName_modal .content button.btn-success {
+body #highscore_modal .modal-content button, body #createRoom_modal .modal-content button, body #setName_modal .modal-content button {
   text-transform: uppercase;
   background-image: none;
   background-color: #4ea683;
   border-radius: 0;
-  border: 1px solid #469575;
+  text-shadow: none;
+  color: white;
 }
 
-body #highscore_modal .content input, body #createRoom_modal .content input, body #setName_modal .content input {
+body #highscore_modal .modal-content input, body #createRoom_modal .modal-content input, body #setName_modal .modal-content input {
   border-radius: 0;
 }
 
