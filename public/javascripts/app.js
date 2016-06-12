@@ -18,24 +18,51 @@ angular.module('app.directives', []);
 // Routing
 app.config(function ($routeProvider, $locationProvider)
 {
+    var isPlayerNameSet = function ($q, $timeout, $playerDetailsService)
+    {
+        var deferred = $q.defer();
+
+        if(!$playerDetailsService.isPlayerReady())
+        {
+            $playerDetailsService.getPlayerReady().then(function()
+            {
+                deferred.resolve();
+            })
+        }
+        else
+        {
+            deferred.resolve();
+        }
+
+        return deferred.promise;
+    };
+
+    var defaultResolve =
+    {
+        isPlayerNameSet : isPlayerNameSet
+    };
 
     $routeProvider
 
         .when('/game/:roomId?', {
             templateUrl: 'pages/index.jade',
             controller: 'mainController',
+            resolve: defaultResolve
         })
         .when('/highscores/:timespan?/:page?', {
             templateUrl: "pages/highscores/highscores.jade",
-            controller: "highScoreController"
+            controller: "highScoreController",
+            resolve: defaultResolve
         })
         .when("/home", {
             templateUrl: "pages/home/home.jade",
-            controller: "homeController"
+            controller: "homeController",
+            resolve: defaultResolve
         })
         .when("/rooms", {
             templateUrl: "pages/rooms/rooms.jade",
-            controller: "roomsController"
+            controller: "roomsController",
+            resolve: defaultResolve
         })
         .otherwise({redirectTo: "/home"});
 

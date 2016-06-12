@@ -76,6 +76,8 @@ angular.module('app.controllers').controller('mainController', function ($scope,
 
         socket.on("Game started", function (data)
         {
+            $('#highscore_modal').modal('hide');
+            $scope.clearBoard();
             var players = data.players;
             players.forEach(function (p)
             {

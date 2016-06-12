@@ -29,9 +29,11 @@ html(ng-app="app")
     script(src='/javascripts/controllers/highscores.js')
     script(src='/javascripts/controllers/rooms.js')
     script(src='/javascripts/controllers/home.js')
+    script(src='/javascripts/controllers/playerDetails.js')
     script(src='/javascripts/services/socket.js')
     script(src='/javascripts/services/player.js')
     script(src='/javascripts/services/localplayer.js')
+    script(src='/javascripts/services/playerDetails.js')
     script(src='/javascripts/directives/header.js')
     
   body(ng-controller="mainController")
@@ -40,3 +42,13 @@ html(ng-app="app")
     div.grid.hidden
     ng-view#content
     audio#tts(src='')
+
+    div(ng-controller="playerDetailsController")#setName_modal.modal.fade
+      div.content
+        h2 Set name
+
+        .form-group
+          label(for='name') Name:
+          input#name.form-control(type='text' ng-model="userName")
+
+        button.btn.btn-success(ng-click="setName()") Set Name
