@@ -50,8 +50,8 @@ var HighScoreService = new function()
 
     me.getAllHighScores = function (skip, take, callback)
     {
-        var baseQuery = HighScore.find();
-        var query = HighScore.find();
+        var baseQuery = HighScore.find()
+        var query = HighScore.find().sort({percentage: -1});;
         if(skip)
         {
             query = query.skip(skip);
@@ -64,7 +64,7 @@ var HighScoreService = new function()
         {
             if(!err)
             {
-                highscores = Enumerable.from(me.convert(highscores)).orderByDescending(function(h){return h.score.percentage}).toArray();
+                highscores = me.convert(highscores);
                 baseQuery.count().exec(function(err, count){
                     callback({results: highscores, totalCount : count});
                 });
@@ -78,7 +78,7 @@ var HighScoreService = new function()
     me.getHighScoresUntilDate = function (skip, take, maxDate, callback)
     {
         var baseQuery = HighScore.find().where('date').gte(maxDate);
-        var query =  HighScore.find().where('date').gte(maxDate);
+        var query =  HighScore.find().where('date').gte(maxDate).sort({percentage: -1});
         if(skip)
         {
             query = query.skip(skip);
@@ -91,7 +91,7 @@ var HighScoreService = new function()
         {
             if(!err)
             {
-                highscores = Enumerable.from(me.convert(highscores)).orderByDescending(function(h){return h.score.percentage}).toArray();
+                highscores = me.convert(highscores);
                 baseQuery.count().exec(function(err, count){
 
                     callback({results: highscores, totalCount : count});

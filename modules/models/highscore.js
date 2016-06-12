@@ -8,7 +8,8 @@ var highScoreSchema = new Schema({
     playerId :String,
     playerName: String,
     scores: [{score:Number, date:Date, roomId: String, maxPoints: Number}],
-    date: Date
+    date: Date,
+    percentage: Number
 });
 
 var HighScore = mongoose.model("HighScore", highScoreSchema);

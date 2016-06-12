@@ -26,13 +26,3 @@ table.table
                     input#name.form-control(type='text' ng-model="newGameName")
             .modal-footer
                 button.btn.btn-default(type='button', data-dismiss='modal', ng-click="createRoom()") Create and join room
-
-//div#createRoom_modal.modal.fade
-    div.content
-        h2 Create Room
-
-        .form-group
-            label(for='name') Name:
-            input#name.form-control(type='text' ng-model="newGameName")
-
-        button.btn.btn-success(ng-click="createRoom()") Create
