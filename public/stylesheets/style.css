@@ -67,7 +67,7 @@ body #info ul#players li {
   font-size: 20px;
 }
 
-body #highscore_modal, body #createRoom_modal {
+body #highscore_modal, body #createRoom_modal, body #setName_modal {
   width: 50%;
   margin: 10% auto;
   height: auto;
@@ -76,7 +76,7 @@ body #highscore_modal, body #createRoom_modal {
   box-shadow: 0 0 17px #FF9F1E;
 }
 
-body #highscore_modal .content, body #createRoom_modal .content {
+body #highscore_modal .content, body #createRoom_modal .content, body #setName_modal .content {
   margin: 5%;
 }
 
