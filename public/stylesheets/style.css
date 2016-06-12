@@ -46,12 +46,16 @@ header nav.navbar #navbar ul li a {
   height: 64px;
   line-height: 64px;
   font-size: 200%;
-  color: #ff00a2;
+  color: white;
   text-shadow: none;
 }
 
 header nav.navbar #navbar ul li a:hover {
-  color: white;
+  color: #ff00a2;
+}
+
+header nav.navbar #navbar ul li.active a {
+  color: #ff00a2;
 }
 
 header nav.navbar #navbar ul li a:hover {
