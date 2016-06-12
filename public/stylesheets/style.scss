@@ -81,7 +81,7 @@ body {
 			}
 		}
 	}
-	#highscore_modal, #createRoom_modal, #setName_modal
+	/*#highscore_modal, #createRoom_modal, #setName_modal
 	{
 		width: 50%;
 		margin: 10% auto;
@@ -106,6 +106,17 @@ body {
 				border-radius: 0;
 			}
 		}
+	}*/
+
+	button.btn-success {
+	  text-transform: uppercase;
+	  background-image: none;
+	  background-color: $green;
+	  border-radius: 0;
+	  border: 1px solid darken($green, 5%);
+	}
+	input {
+	  border-radius: 0;
 	}
 
 

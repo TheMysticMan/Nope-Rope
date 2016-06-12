@@ -139,6 +139,32 @@ body {
   background-repeat: repeat-x;
   text-transform: uppercase;
   font-family: geosanslight-nmsregular;
+  /*#highscore_modal, #createRoom_modal, #setName_modal
+	{
+		width: 50%;
+		margin: 10% auto;
+		height: auto;
+		background-color: white;
+		//border-radius: 1%;
+		//box-shadow: 0 0 17px #FF9F1E;
+		border: 2px solid $green;
+
+		.content {
+			margin: 5%;
+
+			button.btn-success {
+				text-transform: uppercase;
+				background-image: none;
+				background-color: $green;
+				border-radius: 0;
+				border: 1px solid darken($green, 5%);
+			}
+
+			input {
+				border-radius: 0;
+			}
+		}
+	}*/
 }
 
 body #content {
@@ -191,19 +217,7 @@ body #info ul#players li {
   font-size: 20px;
 }
 
-body #highscore_modal, body #createRoom_modal, body #setName_modal {
-  width: 50%;
-  margin: 10% auto;
-  height: auto;
-  background-color: white;
-  border: 2px solid #4ea683;
-}
-
-body #highscore_modal .content, body #createRoom_modal .content, body #setName_modal .content {
-  margin: 5%;
-}
-
-body #highscore_modal .content button.btn-success, body #createRoom_modal .content button.btn-success, body #setName_modal .content button.btn-success {
+body button.btn-success {
   text-transform: uppercase;
   background-image: none;
   background-color: #4ea683;
@@ -211,7 +225,7 @@ body #highscore_modal .content button.btn-success, body #createRoom_modal .conte
   border: 1px solid #469575;
 }
 
-body #highscore_modal .content input, body #createRoom_modal .content input, body #setName_modal .content input {
+body input {
   border-radius: 0;
 }
 
