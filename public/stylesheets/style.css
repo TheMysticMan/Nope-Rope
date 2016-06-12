@@ -1,4 +1,124 @@
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700,200italic,400italic,700italic);
+header nav.navbar {
+  height: 64px;
+  line-height: 64px;
+  color: white;
+  margin: 0px;
+  border-bottom: 2px solid #FF9F1E;
+}
+
+header nav.navbar .navbar-header {
+  height: 64px;
+}
+
+header nav.navbar .navbar-header .navbar-brand {
+  padding: 0px;
+  height: 64px;
+  line-height: 64px;
+  font-size: 200%;
+  color: #FF9F1E;
+}
+
+header nav.navbar .navbar-header button {
+  height: 64px;
+  margin: 0;
+  padding: 0;
+  width: 70px;
+  border: 0;
+  text-align: center;
+}
+
+header nav.navbar .navbar-header button span {
+  background-color: white;
+}
+
+header nav.navbar #navbar ul {
+  margin-left: 15px;
+  text-align: center;
+}
+
+header nav.navbar #navbar ul li {
+  padding-right: 20px;
+}
+
+header nav.navbar #navbar ul li a {
+  padding: 0px;
+  height: 64px;
+  line-height: 64px;
+  font-size: 200%;
+  color: #ff00a2;
+  text-shadow: none;
+}
+
+header nav.navbar #navbar ul li a:hover {
+  color: white;
+}
+
+header nav.navbar #navbar ul li a:hover {
+  background-color: transparent;
+}
+
+header nav.navbar #navbar.in {
+  background-color: #1f2324;
+}
+
+header nav.navbar #navbar.in ul.menu-items ul {
+  margin: 0;
+  padding: 0;
+}
+
+#highscores.page {
+  color: white;
+}
+
+#highscores.page h1 {
+  line-height: 64px;
+}
+
+#highscores.page h2 {
+  color: #4ea683;
+  display: none;
+}
+
+#highscores.page nav {
+  background-color: transparent;
+  background-image: none;
+  border-radius: 0;
+  border: 0;
+  box-shadow: none;
+}
+
+#highscores.page nav li {
+  font-size: 200%;
+}
+
+#highscores.page nav li a {
+  background-color: transparent;
+  box-shadow: none;
+  background-image: none;
+  text-shadow: none;
+  padding-left: 0;
+  height: 64px;
+  line-height: 64px;
+  padding: 0;
+  margin-right: 25px;
+}
+
+#highscores.page nav li.active a {
+  border-bottom: 2px solid #FF9F1E;
+  color: #ff00a2;
+}
+
+#highscores.page table thead {
+  color: #4ea683;
+  font-size: 125%;
+  font-weight: bold;
+}
+
+#highscores.page table tbody tr td {
+  border-top: 1px solid #777;
+}
+
 html, body {
   height: 100%;
   overflow: hidden;
@@ -9,18 +129,51 @@ html, body {
 }
 
 body {
-  margin-top: 50px;
   background-color: #1f2324;
+  background-image: -webkit-linear-gradient(top, #3c3c3c 0, #222 100%);
+  background-image: -o-linear-gradient(top, #3c3c3c 0, #222 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#3c3c3c), to(#222));
+  background-image: linear-gradient(to bottom, #3c3c3c 0, #222 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff3c3c3c', endColorstr='#ff222222', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+  background-repeat: repeat-x;
   text-transform: uppercase;
   font-family: geosanslight-nmsregular;
+  /*#highscore_modal, #createRoom_modal, #setName_modal
+	{
+		width: 50%;
+		margin: 10% auto;
+		height: auto;
+		background-color: white;
+		//border-radius: 1%;
+		//box-shadow: 0 0 17px #FF9F1E;
+		border: 2px solid $green;
+
+		.content {
+			margin: 5%;
+
+			button.btn-success {
+				text-transform: uppercase;
+				background-image: none;
+				background-color: $green;
+				border-radius: 0;
+				border: 1px solid darken($green, 5%);
+			}
+
+			input {
+				border-radius: 0;
+			}
+		}
+	}*/
+}
+
+body #content {
+  display: block;
+  padding-top: 64px;
 }
 
 body #game {
   float: left;
-}
-
-body #game canvas {
-  border: 5px solid gray;
 }
 
 body #game h1#event {
@@ -36,9 +189,7 @@ body #info {
   width: 300px;
   height: 600px;
   color: white;
-  border-top: 5px solid gray;
-  border-right: 5px solid gray;
-  border-bottom: 5px solid gray;
+  border: 2px solid #FF9F1E;
 }
 
 body #info button {
@@ -66,36 +217,16 @@ body #info ul#players li {
   font-size: 20px;
 }
 
-.highscores {
-  color: white;
+body button.btn-success {
+  text-transform: uppercase;
+  background-image: none;
+  background-color: #4ea683;
+  border-radius: 0;
+  border: 1px solid #469575;
 }
 
-.highscores .title {
-  display: flex;
-}
-
-.highscores nav {
-  background: none;
-  background-color: #494d4e;
-  border: none;
-}
-
-.highscores .table td {
-  border-top: 1px solid #494d4e;
-}
-
-.highscores .pagination a {
-  color: #777;
-  border: none;
-  background: #494d4e;
-}
-
-.highscores .pagination .active a {
-  color: #555;
-  background-image: -webkit-linear-gradient(top, #dbdbdb 0, #e2e2e2 100%);
-  background-image: -o-linear-gradient(top, #dbdbdb 0, #e2e2e2 100%);
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#dbdbdb), to(#e2e2e2));
-  background-image: linear-gradient(to bottom, #dbdbdb 0, #e2e2e2 100%);
+body input {
+  border-radius: 0;
 }
 
 h1, h2, h3, h4, h5 {
@@ -105,12 +236,42 @@ h1, h2, h3, h4, h5 {
   text-transform: uppercase;
 }
 
+h1 {
+  color: #ff00a2;
+}
+
 @font-face {
   font-family: 'geosanslight-nmsregular';
   src: url("/fonts/geonms-webfont.eot");
   src: url("/fonts/geonms-webfont.eot?#iefix") format("embedded-opentype"), url("/fonts/geonms-webfont.woff") format("woff"), url("/fonts/geonms-webfont.ttf") format("truetype"), url("/fonts/geonms-webfont.svg#geosanslight-nmsregular") format("svg");
   font-weight: normal;
   font-style: normal;
+}
+
+.background {
+  background-color: #1f2324;
+  background-position: center center;
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  z-index: -1;
+  -webkit-transition: background-image 0.5s ease-in-out;
+  transition: background-image 0.5s ease-in-out;
+}
+
+.grid {
+  background-image: url("/images/grid.png");
+  background-position: left top;
+  background-size: initial;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  z-index: -1;
+}
+
+.grid.points {
+  background-image: url("/images/grid_point.png");
 }
 
 /*# sourceMappingURL=style.css.map */

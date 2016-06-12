@@ -36,10 +36,10 @@ html(ng-app="app")
     script(src='/javascripts/services/playerDetails.js')
     script(src='/javascripts/directives/header.js')
     
-  body.container(ng-controller="mainController")
-    //header
+  body(ng-controller="mainController")
+    header
     div.background
-    div.grid.hidden
+    div.grid
     ng-view#content
     audio#tts(src='')
 
@@ -55,4 +55,4 @@ html(ng-app="app")
               label(for='name') Name:
               input#name.form-control(type='text' ng-model="userName")
           .modal-footer
-            button.btn.btn-default(type='button', data-dismiss='modal', ng-click="setName()") Choose name
+            button.btn.btn-success(type='button', data-dismiss='modal', ng-click="setName()") Choose name
