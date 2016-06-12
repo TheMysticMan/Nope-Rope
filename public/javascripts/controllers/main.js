@@ -9,7 +9,10 @@ angular.module('app.controllers').controller('mainController', function ($scope,
 
     $scope.init = function ()
     {
-        $scope.game = new Phaser.Game(800, 600, Phaser.AUTO, 'gamecanvas', {
+        $scope.gameWidth = $('#gamecanvas').width() -4;
+        $scope.gameHeight = 600 -4;
+
+        $scope.game = new Phaser.Game($scope.gameWidth, $scope.gameHeight, Phaser.AUTO, 'gamecanvas', {
             preload: $scope.preload,
             create: $scope.create,
             update: $scope.update,
@@ -114,11 +117,33 @@ angular.module('app.controllers').controller('mainController', function ($scope,
         $scope.create = function ()
         {
             console.log('create');
+
+            $scope.resized();
         },
 
         $scope.update = function ()
         {
 
+        }
+
+        $scope.resized = function() {
+            $scope.gameWidth = $('#gamecanvas').width() -4;
+            $scope.gameHeight = 600 -4;
+
+            $scope.game.scale.minWidth = $scope.gameWidth;
+            $scope.game.scale.minHeight = $scope.gameHeight;
+            $scope.game.scale.maxWidth = $scope.gameWidth;
+            $scope.game.scale.maxHeight = $scope.gameHeight;
+            
+            //$scope.game.scale.pageAlignHorizontally = true;
+            
+            if (!this.game.device.desktop) {
+                //$scope.game.scale.pageAlignHorizontally = true;
+                $scope.game.scale.forceLandscape = true;
+                debugger;
+            }
+
+            $scope.game.scale.updateLayout(true);
         }
 
     $scope.render = function ()

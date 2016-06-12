@@ -115,6 +115,10 @@ header nav.navbar #navbar.in ul.menu-items ul {
   color: #ff00a2;
 }
 
+#game.page {
+  color: white;
+}
+
 #game.page #gamecanvas {
   border: 2px solid #FF9F1E;
 }
@@ -162,6 +166,7 @@ body .modal-dialog {
   color: #333;
 }
 
+body button,
 body button.btn-success,
 body button.btn-default {
   text-transform: uppercase;
