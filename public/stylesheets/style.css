@@ -115,6 +115,23 @@ header nav.navbar #navbar.in ul.menu-items ul {
   color: #ff00a2;
 }
 
+#highscores.page .pagination li a {
+  border-radius: 0;
+  background: none;
+  border: none;
+  color: #777;
+  font-size: 1.5em;
+}
+
+#highscores.page .pagination li a:hover {
+  color: #333;
+}
+
+#highscores.page .pagination li.active a {
+  border-bottom: 2px solid #FF9F1E;
+  color: #ff00a2;
+}
+
 #game.page {
   color: white;
 }
