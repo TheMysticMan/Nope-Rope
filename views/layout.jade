@@ -43,12 +43,16 @@ html(ng-app="app")
     ng-view#content
     audio#tts(src='')
 
-    div(ng-controller="playerDetailsController")#setName_modal.modal.fade
-      div.content
-        h2 Set name
-
-        .form-group
-          label(for='name') Name:
-          input#name.form-control(type='text' ng-model="userName")
-
-        button.btn.btn-success(ng-click="setName()") Set Name
+    // Modal
+    #setName_modal.modal.fade(role='dialog' ng-controller="playerDetailsController")
+      .modal-dialog
+        // Modal content
+        .modal-content
+          .modal-header
+            h4.modal-title Choose your player name
+          .modal-body
+            .form-group
+              label(for='name') Name:
+              input#name.form-control(type='text' ng-model="userName")
+          .modal-footer
+            button.btn.btn-default(type='button', data-dismiss='modal', ng-click="setName()") Choose name

@@ -11,17 +11,17 @@ angular.module('app.controllers').controller('playerDetailsController', function
         $.ajax({
             url: 'https://randomuser.me/api/',
             dataType: 'jsonp',
-            success: function(data){
-                $timeout(function()
+            success: function (data)
+            {
+                $timeout(function ()
                 {
                     $scope.userName = data.results[0].name.first + " " + data.results[0].name.last;
                 });
             }
         });
 
-        $rootScope.$on("showPlayerDetails", function(ev, callback)
+        $rootScope.$on("showPlayerDetails", function (ev, callback)
         {
-            //debugger;
             $scope.callback = callback;
             $scope.show();
         })
@@ -30,6 +30,13 @@ angular.module('app.controllers').controller('playerDetailsController', function
 
     $scope.show = function ()
     {
+        // prevent closing the modal
+        $("#setName_modal").modal(
+            {
+                backdrop: 'static',
+                keyboard: false
+            }
+        );
         $("#setName_modal").modal("show");
     };
 

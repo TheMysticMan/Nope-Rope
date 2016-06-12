@@ -13,7 +13,8 @@ function RoomFactory()
     var me = this;
 
     // mock default active room
-    activeRooms.getSource().push(new Room(1, "demo Room"));
+    var defaultRoom = new Room(1, "demo Room");
+    activeRooms.getSource().push(defaultRoom);
 
     /**
      * this method creates a room with a unique identifier
@@ -22,6 +23,12 @@ function RoomFactory()
     me.createRoom = function(name)
     {
         var room = new Room(Guid.raw(), name);
+        room.destroy = function ()
+        {
+            var roomId = room.id;
+            activeRooms = Enumerable.from(activeRooms.where(function(x){return x.id != roomId}).toArray());
+        }
+
         activeRooms.getSource().push(room);
         return room.id;
     };
@@ -35,7 +42,7 @@ function RoomFactory()
         var guid = new Guid(id);
 
         return activeRooms.where(function(x){return guid.equals(new Guid(x.id))}).firstOrDefault();
-    }
+    };
 
     /**
      *

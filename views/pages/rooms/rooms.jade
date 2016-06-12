@@ -13,7 +13,21 @@ table.table
             button.btn.btn-default(ng-class="{'disabled':room.isFull}" ng-click="joinRoom(room)") Join
 
 
-div#createRoom_modal.modal.fade
+// Modal
+#createRoom_modal.modal.fade(role='dialog')
+    .modal-dialog
+        // Modal content
+        .modal-content
+            .modal-header
+                h4.modal-title Create new room
+            .modal-body
+                .form-group
+                    label(for='name') Name:
+                    input#name.form-control(type='text' ng-model="newGameName")
+            .modal-footer
+                button.btn.btn-default(type='button', data-dismiss='modal', ng-click="createRoom()") Create and join room
+
+//div#createRoom_modal.modal.fade
     div.content
         h2 Create Room
 
