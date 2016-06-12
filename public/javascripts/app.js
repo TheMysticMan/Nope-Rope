@@ -15,28 +15,41 @@ angular.module('app.controllers', []);
 angular.module('app.services', []);
 angular.module('app.directives', []);
 
+var appStarted = false;
 // Routing
 app.config(function ($routeProvider, $locationProvider)
 {
-    var isPlayerNameSet = function ($q, $timeout, $playerDetailsService)
+    var isPlayerNameSet = function ($q, $timeout, $playerDetailsService, $location)
     {
         var deferred = $q.defer();
 
-        if(!$playerDetailsService.isPlayerReady())
+        if(!appStarted)
         {
-            $playerDetailsService.getPlayerReady().then(function()
+            $location.path("/home");
+            deferred.reject();
+            appStarted = true;
+        }
+        else{
+            if(!$playerDetailsService.isPlayerReady())
+            {
+                $playerDetailsService.getPlayerReady().then(function()
+                {
+                    deferred.resolve();
+                })
+            }
+            else
             {
                 deferred.resolve();
-            })
-        }
-        else
-        {
-            deferred.resolve();
+            }
         }
 
         return deferred.promise;
     };
 
+    var isStarted = function ()
+    {
+        appStarted = true;
+    };
     var defaultResolve =
     {
         isPlayerNameSet : isPlayerNameSet
@@ -57,7 +70,7 @@ app.config(function ($routeProvider, $locationProvider)
         .when("/home", {
             templateUrl: "pages/home/home.jade",
             controller: "homeController",
-            resolve: defaultResolve
+            resolve : {isStarted: isStarted}
         })
         .when("/rooms", {
             templateUrl: "pages/rooms/rooms.jade",

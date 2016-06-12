@@ -30,6 +30,7 @@ html(ng-app="app")
     script(src='/javascripts/controllers/rooms.js')
     script(src='/javascripts/controllers/home.js')
     script(src='/javascripts/controllers/playerDetails.js')
+    script(src='/javascripts/controllers/splash.js')
     script(src='/javascripts/controllers/header.js')
     script(src='/javascripts/services/socket.js')
     script(src='/javascripts/services/player.js')
@@ -38,6 +39,10 @@ html(ng-app="app")
     script(src='/javascripts/directives/header.js')
     
   body(ng-controller="mainController")
+    .splash(ng-controller="splashController" ng-class="{hidden:hidden}")
+        h1.title Nope Rope
+        div.loader
+        span.subtitle Loading....
     header
     div.background
     div.grid
