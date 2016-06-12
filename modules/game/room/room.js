@@ -258,14 +258,28 @@ function Room(id, name)
      */
     me.setInitialBoardState = function ()
     {
-        var playerCount = 0;
+        var chosenPositions = Enumerable.from([]);
         me.players.forEach(function (player)
         {
-            player.setCurrentPosition(Room.Board.StartPosition[playerCount].position);
-            player.setDirection(Room.Board.StartPosition[playerCount].direction);
+            var getRandomNumber = function()
+            {
+                var n  = Math.floor((Math.random() * 4) );
+                if(!chosenPositions.contains(n))
+                {
+                    chosenPositions.getSource().push(n);
+                    return n;
+                }
+                else
+                {
+                    return getRandomNumber();
+                }
+            };
+
+            var random = getRandomNumber();
+            player.setCurrentPosition(Room.Board.StartPosition[random].position);
+            player.setDirection(Room.Board.StartPosition[Math.floor((Math.random() * 4) )].direction);
             player.setState(Player.Player.State.Alive);
             player.setScore(0);
-            playerCount++;
         })
     };
 
@@ -280,7 +294,6 @@ function Room(id, name)
         var directionObj = Player.Direction[direction];
         if (directionObj)
         {
-            console.log("player direction changed to :", direction);
             player.setDirection(directionObj);
             me.sendMessage(RoomMsg.PlayerDirectionUpdateMessage.messageName, new RoomMsg.PlayerDirectionUpdateMessage(me.id, player.id, direction), null);
         }
@@ -332,7 +345,6 @@ function Room(id, name)
         // iterate over new positions to determine if it can be occupied
         newPositions.forEach(function (newPos)
         {
-            console.log("checking :", newPos.newPosition.x, " ", newPos.newPosition.y);
             if (!me.isPositionOccupied(newPos.newPosition) && me.isPositionOnBoard(newPos.newPosition))
             {
                 var otherPositions = Enumerable.from(newPositions).where(function (p)

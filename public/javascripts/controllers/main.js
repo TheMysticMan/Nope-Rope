@@ -71,9 +71,6 @@ angular.module('app.controllers').controller('mainController', function ($scope,
                     player.move(position)
                 }
             }
-            ;
-
-            console.log("position update ", playerId, " x:", position.x, " y:", position.y);
 
         });
 
