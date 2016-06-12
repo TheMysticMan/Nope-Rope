@@ -1,4 +1,4 @@
-nav.navbar.navbar-fixed-top
+nav.navbar.navbar-fixed-top(ng-controller="headerController")
 	div.container
 		div.navbar-header
 			button(type="button", data-toggle="collapse", data-target="#navbar", aria-expanded="false", aria-controls="navbar").navbar-toggle.collapsed
@@ -9,11 +9,11 @@ nav.navbar.navbar-fixed-top
 			a(href="/").navbar-brand Nope Rope
 		div#navbar.collapse.navbar-collapse
 			ul.nav.navbar-nav.menu-items
-				li.highscores
+				li.highscores(ng-class="getClass('/highscores')")
 					a(href="/highscores") HighScores
-				li.game
+				li.game(ng-class="getClass('/game')")
 					a(href="/game") Game
-				li.room
+				li.room(ng-class="getClass('/room')")
 					a(href="/rooms") Rooms
 			ul.nav.nav-bar.navbar-right
 				
