@@ -35,7 +35,10 @@ angular.module('app.controllers').controller('roomsController', function ($scope
 
     $scope.joinRoom = function(room)
     {
-        $location.path("game/" + room.id);
+        if(!room.isFull)
+        {
+            $location.path("game/" + room.id);
+        }
     }
 
     $scope.init();
