@@ -6,6 +6,7 @@ var currentPlayerCount = 0;
 var HighScore = require("./../../models/highscore");
 var Guid = require("guid");
 var Enumerable = require("linq");
+var HighScoreService = require("./../../services/highScoreService");
 
 /**
  * @return {number}
@@ -212,6 +213,7 @@ function Player(socket)
 	me.saveScore = function (date, maxScore, roomId)
 	{
 		me._highScoreEntity.scores.push({score: me.getScore(), date: date, roomId: roomId, maxPoints: maxScore});
+		me._highScoreEntity.percentage = HighScoreService.calculateAverage(me._highScoreEntity.scores).percentage;
 		me.saveHighScoreEntity();
 	};
 
