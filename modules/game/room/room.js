@@ -88,7 +88,7 @@ function Room(id, name)
         player.setColor(me.getColor());
         me.sendMessage(RoomMsg.PlayerJoinedMessage.messageName, new RoomMsg.PlayerJoinedMessage(player, me.id), {exclude: Enumerable.from([player])});
 
-        tts.say(player.name + "has joined the game");
+        tts.say(player.name + "has joined the game", me.getSockets());
 
         me.addPlayerEventListeners(player);
         return true;
@@ -113,7 +113,7 @@ function Room(id, name)
 
         me.sendMessage(RoomMsg.PlayerLeftMessage.messageName, new RoomMsg.PlayerLeftMessage(player, me.id), {exclude: Enumerable.from([player])});
 
-        tts.say(player.name + "has left the game");
+        tts.say(player.name + "has left the game", me.getSockets());
 
         if (me.players.count() == 0)
         {
@@ -212,7 +212,7 @@ function Room(id, name)
             me.sendMessage(RoomMsg.GameStartedMessage.messageName, new RoomMsg.GameStartedMessage(me.id, me.players), null);
             me._startGameLoop();
 
-            tts.say("Let the games begin");
+            tts.say("Let the games begin", me.getSockets());
         }
     };
 
@@ -232,7 +232,7 @@ function Room(id, name)
         me.board = [];
         me.sendMessage(RoomMsg.GameStoppedMessage.messageName, new RoomMsg.GameStoppedMessage(me.id, me.getHighScores()), null);
 
-        tts.say("Games over");
+        tts.say("Games over", me.getSockets());
     };
 
     /**
@@ -357,7 +357,7 @@ function Room(id, name)
                         return other.newPosition.equals(newPos.newPosition)
                     }).count() > 0)
                 {
-                    console.log("1");
+                    occupiedPositions.push(newPos);
                     deadPlayers.push(newPos.player);
                 }
                 else
@@ -368,7 +368,6 @@ function Room(id, name)
             else
             {
                 deadPlayers.push(newPos.player);
-                tts.say(newPos.player.name + 'has died');
             }
 
         });
@@ -384,6 +383,7 @@ function Room(id, name)
         // set state to dead
         deadPlayers.forEach(function (player)
         {
+            tts.say(player.name + 'has died', me.getSockets());
             player.setState(Player.Player.State.Dead);
             me.sendMessage(RoomMsg.PlayerDeadMessage.messageName, new RoomMsg.PlayerDeadMessage(me.id, player.id), null);
         });
@@ -467,6 +467,10 @@ function Room(id, name)
         }).orderByDescending(function(h){return h.score.percentage}).toArray();
     };
 
+    me.getSockets = function ()
+    {
+        return me.players.select(function(p){return p.socket}).toArray();
+    }
     /**
      * should be overwritten by the room factory
      */
