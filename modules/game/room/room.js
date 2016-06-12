@@ -479,10 +479,10 @@ function Room(id, name)
 }
 
 Room.Colors = [
-    "#ff00ff",
-    "#0000ff",
-    "#ffff00",
-    "#00ff00"
+    "#ff00a2",
+    "#5bffff",
+    "#FF9F1E",
+    "#4ea683"
 ];
 
 Room.Board = {
