@@ -1,7 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700,200italic,400italic,700italic);
 html, body {
   height: 100%;
-  overflow: hidden;
 }
 
 *, :after, :before {
@@ -10,7 +9,6 @@ html, body {
 
 body {
   margin-top: 50px;
-  margin-left: 50px;
   background-color: #1f2324;
   text-transform: uppercase;
   font-family: geosanslight-nmsregular;
@@ -67,17 +65,36 @@ body #info ul#players li {
   font-size: 20px;
 }
 
-body #highscore_modal, body #createRoom_modal, body #setName_modal {
-  width: 50%;
-  margin: 10% auto;
-  height: auto;
-  background-color: white;
-  border-radius: 1%;
-  box-shadow: 0 0 17px #FF9F1E;
+.highscores {
+  color: white;
 }
 
-body #highscore_modal .content, body #createRoom_modal .content, body #setName_modal .content {
-  margin: 5%;
+.highscores .title {
+  display: flex;
+}
+
+.highscores nav {
+  background: none;
+  background-color: #494d4e;
+  border: none;
+}
+
+.highscores .table td {
+  border-top: 1px solid #494d4e;
+}
+
+.highscores .pagination a {
+  color: #777;
+  border: none;
+  background: #494d4e;
+}
+
+.highscores .pagination .active a {
+  color: #555;
+  background-image: -webkit-linear-gradient(top, #dbdbdb 0, #e2e2e2 100%);
+  background-image: -o-linear-gradient(top, #dbdbdb 0, #e2e2e2 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#dbdbdb), to(#e2e2e2));
+  background-image: linear-gradient(to bottom, #dbdbdb 0, #e2e2e2 100%);
 }
 
 h1, h2, h3, h4, h5 {

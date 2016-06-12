@@ -42,7 +42,7 @@ function RoomFactory()
         var guid = new Guid(id);
 
         return activeRooms.where(function(x){return guid.equals(new Guid(x.id))}).firstOrDefault();
-    }
+    };
 
     /**
      *
