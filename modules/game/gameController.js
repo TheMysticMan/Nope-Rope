@@ -52,6 +52,7 @@ function GameController()
     me._initPlayerListeners = function (connectedPlayer)
     {
         connectedPlayer.socket.on("Join room", me.onPlayerJoinRoom.bind(me, connectedPlayer));
+        connectedPlayer.socket.on("Set name", me.onSetPlayerName.bind(me, connectedPlayer));
     };
 
     me.addPostalListeners = function ()
@@ -83,7 +84,6 @@ function GameController()
     me.onPlayerJoinRoom = function (connectedPlayer, data, callback)
     {
         var room = roomFactory.getRoom(data.roomId);
-        connectedPlayer.setName(data.name);
         if(room.addPlayer(connectedPlayer))
         {
             connectedPlayer.room = room;
@@ -93,6 +93,17 @@ function GameController()
         {
             callback(false);
         }
+    };
+
+    /**
+     * This method sets the name of the player
+     * @param player
+     * @param name
+     */
+    me.onSetPlayerName = function (player, name, callback)
+    {
+        player.setName(name);
+        callback();
     };
 
     me.addPostalListeners();
