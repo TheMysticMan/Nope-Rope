@@ -2,7 +2,6 @@
 
 html, body {
 	height: 100%;
-	overflow: hidden;
 }
 
 *, :after, :before {
@@ -12,7 +11,6 @@ html, body {
 body {
 
 	margin-top: 50px;
-	margin-left: 50px;
 	background-color: #1f2324;
 	text-transform: uppercase;
 	font-family: geosanslight-nmsregular;
@@ -68,19 +66,41 @@ body {
 			}
 		}
 	}
-  	#highscore_modal, #createRoom_modal, #setName_modal
-	{
-		width: 50%;
-		margin: 10% auto;
-		height: auto;
-		background-color: white;
-		border-radius: 1%;
-		box-shadow: 0 0 17px #FF9F1E;
+}
 
-        .content {
-            margin: 5%;
-	    }
-  	}
+.highscores
+{
+  color: white;
+  
+  .title{
+	display: flex;
+  }
+  nav{
+	background:none;
+	background-color: #494d4e;
+	border: none;
+  }
+  .table {
+	td{
+	  border-top: 1px solid #494d4e
+	}
+  }
+
+  .pagination {
+	a
+	{
+	  color: #777;
+	  border: none;
+	  background: #494d4e;
+	}
+	.active a {
+	  color: #555;
+	  background-image: -webkit-linear-gradient(top,#dbdbdb 0,#e2e2e2 100%);
+	  background-image: -o-linear-gradient(top,#dbdbdb 0,#e2e2e2 100%);
+	  background-image: -webkit-gradient(linear,left top,left bottom,from(#dbdbdb),to(#e2e2e2));
+	  background-image: linear-gradient(to bottom,#dbdbdb 0,#e2e2e2 100%);
+	}
+  }
 }
 
 h1, h2, h3, h4, h5 {

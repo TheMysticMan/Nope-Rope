@@ -1,31 +1,34 @@
-h1 HighScores
-    h2(ng-bind="timespan")
+.highscores
+    nav.navbar.navbar-default
+        .container-fluid
+            ul.nav.navbar-nav
+                li(ng-class="{active:isActive('today')}")
+                    a(href="/highscores/today") Today
+                li(ng-class="{active:isActive('week')}")
+                    a(href="/highscores/week") This week
+                li(ng-class="{active:isActive('month')}")
+                    a(href="/highscores/month") This month
+                li(ng-class="{active:isActive('all')}")
+                    a(href="/highscores/all") All
 
-nav.navbar.navbar-default
-    .container-fluid
-        ul.nav.navbar-nav
-            li(ng-class="{active:isActive('today')}")
-                a(href="/highscores/today") Today
-            li(ng-class="{active:isActive('week')}")
-                a(href="/highscores/week") This week
-            li(ng-class="{active:isActive('month')}")
-                a(href="/highscores/month") This month
-            li(ng-class="{active:isActive('all')}")
-                a(href="/highscores/all") All
+    section.title
+        h1 HighScores
+        h1  &nbsp;-&nbsp;
+        h1(ng-bind="timespan")
 
-table.table
-    thead
-        td Player
-        td Total Points
-        td Total Games
-        td Percentage
+    table.table
+        thead
+            td Player
+            td Total Points
+            td Total Games
+            td Percentage
 
-    tr(ng-repeat="score in scores")
-        td(ng-bind="score.playerName")
-        td(ng-bind="score.score.totalPoints")
-        td(ng-bind="score.score.totalGames")
-        td(ng-bind="formatPercentage(score.score.percentage)")
+        tr(ng-repeat="score in scores")
+            td(ng-bind="score.playerName")
+            td(ng-bind="score.score.totalPoints")
+            td(ng-bind="score.score.totalGames")
+            td(ng-bind="formatPercentage(score.score.percentage)")
 
-ul.pagination
-    li(ng-repeat="page in pages" ng-class="{'active':page.active}")
-        a(ng-href="{{'highscores/'+ timespan+ '/'+ page.number}}" ng-bind="page.number")
+    ul.pagination
+        li(ng-repeat="page in pages" ng-class="{'active':page.active}")
+            a(ng-href="{{'highscores/'+ timespan+ '/'+ page.number}}" ng-bind="page.number")
