@@ -5,6 +5,16 @@
   "scripts": {
     "start": "node ./app"
   },
+  "homepage": "nope-rope.herokuapp.com",
+  "contributors":
+  [
+    {
+      "name": "Sander Brokelman"
+    },
+    {
+      "name": "Edo Limburg"
+    }
+  ],
   "dependencies": {
     "angular": "^1.4.8",
     "angular-animate": "^1.4.8",
